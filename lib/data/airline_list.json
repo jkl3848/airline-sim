@@ -1,0 +1,32 @@
+[
+  {
+    "name": "",
+    "originCountryCode": "",
+    "originCountry": "",
+    "startDate": "",
+    "routes": [
+      {
+        "airportCodeA": "",
+        "airportCodeB": "",
+        "airplaneID": "",
+        "frequency": [{ "dayOfWeek": 0, "departureTime": 0 }]
+      }
+    ],
+    "airports": [
+      {
+        "airportCode": "",
+        "gates": 0,
+        "hasTerminal": false,
+        "isHub": false
+      }
+    ],
+    "airplanes": [
+      {
+        "airplaneCode": 0,
+        "airplaneID": "",
+        "buildDate": 0,
+        "milesFlown": 0
+      }
+    ]
+  }
+]
