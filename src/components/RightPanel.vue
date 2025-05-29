@@ -1,9 +1,7 @@
 <script setup></script>
 
 <template>
-  <div id="right-panel">
-    <WorldMap />
-  </div>
+  <div id="right-panel"></div>
 </template>
 
 <style scoped>
