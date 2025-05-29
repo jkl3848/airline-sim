@@ -1,36 +1,32 @@
 [
   {
-    "builder": "",
-    "name": "",
-    "family": "",
+    "builder": "Airscape",
+    "family": "2100",
     "dateSaleBegin": 0,
     "dateSaleEnd": 0,
     "recalls": [],
     "specs": {
-      "length": 0,
-      "width": 0,
-      "height": 0,
-      "wingspan": 0,
-      "maxPayload": 0,
-      "fuelCapacity": 0,
-      "maxRange": 0,
-      "rangeAtMaxPayload": 0,
-      "maxSpeed": 0,
-      "cruiseSpeed": 0,
-      "maxAltitude": 0,
-      "maxPassengers": 0
+      "length": 340,
+      "wingspan": 360,
+      "maxPayload": 13200,
+      "fuelCapacity": 23760,
+      "maxRange": 7750,
+      "rangeAtMaxPayload": 6900,
+      "maxSpeed": 890,
+      "cruiseSpeed": 830,
+      "maxAltitude": 12000,
+      "maxPassengers": 156
     },
-    "cost": 0,
+    "cost": 100000000,
     "salesStats": {
       "quantityBuilt": 0,
       "quantitySold": 0,
       "operators": [{ "airlineName": 0, "quantity": 0 }]
     },
     "variants": {
-      "variantName": "",
+      "variantName": "2110",
       "specOverrides": {},
-      "isCargo": false
-    },
+      "isCargo": false,
     "seatLayouts": [
       {
         "firstClass": 0,
@@ -40,5 +36,6 @@
         "economy": 0
       }
     ]
+    }
   }
 ]
