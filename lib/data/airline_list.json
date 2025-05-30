@@ -1,0 +1,38 @@
+[
+  {
+    "name": "USAirlines",
+    "originCountryCode": "USA",
+    "originCountry": "United States",
+    "startDate": "",
+    "routes": [
+      {
+        "airportCodeA": "MCO",
+        "airportCodeB": "JFK",
+        "airplaneID": "",
+        "frequency": [{ "dayOfWeek": 0, "departureTime": 720 },{ "dayOfWeek": 0, "departureTime": 945 },{ "dayOfWeek": 0, "departureTime": 1100 },{ "dayOfWeek": 0, "departureTime": 1330 },{ "dayOfWeek": 0, "departureTime": 1605 },{ "dayOfWeek": 0, "departureTime": 1720 },{ "dayOfWeek": 0, "departureTime": 2055 }]
+      }
+    ],
+    "airports": [
+      {
+        "airportCode": "JFK",
+        "gates": 5,
+        "hasTerminal": false,
+        "isHub": false
+      },
+      {
+        "airportCode": "MCO",
+        "gates": 3,
+        "hasTerminal": false,
+        "isHub": false
+      }
+    ],
+    "airplanes": [
+      {
+        "airplaneCode": 0,
+        "airplaneID": "",
+        "buildDate": 0,
+        "milesFlown": 0
+      }
+    ]
+  }
+]

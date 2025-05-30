@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "builder": { "type": "string" },
+      "name": { "type": "string" },
+      "family": { "type": "string" },
+      "dateSaleBegin": { "type": "integer" },
+      "dateSaleEnd": { "type": "integer" },
+      "recalls": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "specs": {
+        "type": "object",
+        "properties": {
+          "length": { "type": "number" },
+          "width": { "type": "number" },
+          "height": { "type": "number" },
+          "wingspan": { "type": "number" },
+          "maxPayload": { "type": "number" },
+          "fuelCapacity": { "type": "number" },
+          "maxRange": { "type": "number" },
+          "rangeAtMaxPayload": { "type": "number" },
+          "maxSpeed": { "type": "number" },
+          "cruiseSpeed": { "type": "number" },
+          "maxAltitude": { "type": "number" },
+          "maxPassengers": { "type": "integer" }
+        },
+        "required": [
+          "length",
+          "width",
+          "height",
+          "wingspan",
+          "maxPayload",
+          "fuelCapacity",
+          "maxRange",
+          "rangeAtMaxPayload",
+          "maxSpeed",
+          "cruiseSpeed",
+          "maxAltitude",
+          "maxPassengers"
+        ]
+      },
+      "cost": { "type": "number" },
+      "salesStats": {
+        "type": "object",
+        "properties": {
+          "quantityBuilt": { "type": "integer" },
+          "quantitySold": { "type": "integer" },
+          "operators": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "airlineName": { "type": "string" },
+                "quantity": { "type": "integer" }
+              },
+              "required": ["airlineName", "quantity"]
+            }
+          }
+        },
+        "required": ["quantityBuilt", "quantitySold", "operators"]
+      },
+      "variants": {
+        "type": "object",
+        "properties": {
+          "variantName": { "type": "string" },
+          "specOverrides": { "type": "object" },
+          "isCargo": { "type": "boolean" }
+        },
+        "required": ["variantName", "specOverrides", "isCargo"]
+      },
+      "seatLayouts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "firstClass": { "type": "integer" },
+            "businessClass": { "type": "integer" },
+            "comfort": { "type": "integer" },
+            "economyPlus": { "type": "integer" },
+            "economy": { "type": "integer" }
+          },
+          "required": [
+            "firstClass",
+            "businessClass",
+            "comfort",
+            "economyPlus",
+            "economy"
+          ]
+        }
+      }
+    },
+    "required": [
+      "builder",
+      "name",
+      "family",
+      "dateSaleBegin",
+      "dateSaleEnd",
+      "recalls",
+      "specs",
+      "cost",
+      "salesStats",
+      "variants",
+      "seatLayouts"
+    ]
+  }
+}
