@@ -79494,14 +79494,14 @@
     "latitude": 28.412903550000003,
     "longitude": -81.30944309752753,
     "elevation": 82,
-    "url": "http://www.orlandoairports.net/",
     "time_zone": "America/New_York",
     "city_code": "ORL",
     "country": "US",
     "city": "Taft",
     "state": "Florida",
-    "county": "Orange County",
-    "type": "AP"
+    "isInternational": true,
+    "size": "large",
+    "passengers": 0
   },
   {
     "code": "MCP",

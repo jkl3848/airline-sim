@@ -1,0 +1,68 @@
+/**
+* Airport size is small, medium, large. Refers to what size airplane can land.
+* Small is for little prop planes, medium is like 727/37, large is for long-haul intl.
+* Passengers is daily passengers. Influnces route demand.
+*/
+[
+  
+  {
+    "code": "JFK",
+    "icao": "KJFK",
+    "name": "John F. Kennedy International Airport",
+    "latitude": 40.642947899999996,
+    "longitude": -73.7793733748521,
+    "time_zone": "America/New_York",
+    "city_code": "NYC",
+    "country": "US",
+    "city": "Inwood",
+    "state": "New York",
+    "isInternational": true,
+    "size": "large",
+    "passengers": 0
+  },
+  {
+    "code": "MCO",
+    "icao": "KMCO",
+    "name": "Orlando International Airport",
+    "latitude": 28.412903550000003,
+    "longitude": -81.30944309752753,
+    "time_zone": "America/New_York",
+    "city_code": "ORL",
+    "country": "US",
+    "city": "Taft",
+    "state": "Florida",
+    "isInternational": true,
+    "size": "large",
+    "passengers": 0
+  },
+  {
+    "code": "ORD",
+    "icao": "KORD",
+    "name": "O'Hare International Airport",
+    "latitude": 41.97795725,
+    "longitude": -87.90917584851792,
+    "time_zone": "America/Chicago",
+    "city_code": "CHI",
+    "country": "US",
+    "city": "Rosemont",
+    "state": "Illinois",
+    "isInternational": true,
+    "size": "large",
+    "passengers": 0
+  },
+  {
+    "code": "ORF",
+    "icao": "KORF",
+    "name": "Norfolk International Airport",
+    "latitude": 36.8946697,
+    "longitude": -76.20229629965002,
+    "time_zone": "America/New_York",
+    "city_code": "ORF",
+    "country": "US",
+    "city": "Norfolk",
+    "state": "Virginia",
+    "isInternational": true,
+    "size": "medium",
+    "passengers": 0
+  }
+]
