@@ -1291,6 +1291,7 @@ __metadata:
     maplibre-gl: "npm:^5.2.0"
     primevue: "npm:^4.3.4"
     vite: "npm:^6.2.1"
+    vite-plugin-json5: "npm:^1.1.9"
     vite-plugin-vue-devtools: "npm:^7.7.2"
     vue: "npm:^3.5.13"
   languageName: unknown
@@ -3046,6 +3047,18 @@ __metadata:
     "@nuxt/kit":
       optional: true
   checksum: 10/aa28806113a7432301acbc1702e2c27b7e6758f785f31467d83018616344db2aa5432ebcb0b29ebe92a6bb5f98c16596fd4eeb000d56e025f5d8c72b3001defe
+  languageName: node
+  linkType: hard
+
+"vite-plugin-json5@npm:^1.1.9":
+  version: 1.1.9
+  resolution: "vite-plugin-json5@npm:1.1.9"
+  dependencies:
+    "@rollup/pluginutils": "npm:^5.1.3"
+    json5: "npm:^2.2.3"
+  peerDependencies:
+    vite: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0
+  checksum: 10/f1e7ad03d83ffcb34905f626ef8fe961fa32de9dcb166fafba678d5256a2e7045b961b0b36bfddb498f92684c6ec8d68776dc7f6ede2fb388a87a7066687eebe
   languageName: node
   linkType: hard
 
