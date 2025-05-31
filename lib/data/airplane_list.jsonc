@@ -1,0 +1,183 @@
+/**
+* Builders:
+*   - Airscape (Airbus)
+*   - Birming (Boeing)
+*   - Bradie (Bombardier)
+*   - BTA (BAE)
+*   - Coleman (Cessna)
+*   - Embassy (Embraer)
+*   - Merriman Downer (McDonnell Douglas)
+*   - Tumenoff (Tupolev)
+* Each plan is just the family,
+* Variants are the different versions in the family.
+* Variants can have multiple seat layouts
+* Plane specs need to be in meters, miles, gallons and mph
+* Only fill cargo capacity if cargo variant
+*/
+[
+  {
+    "builder": "Airscape",
+    "family": "2100",
+    "recalls": [],
+    "size": "medium",
+    "variants": [
+      {
+        "variantName": "2110",
+        "dateSaleBegin": 0,
+        "dateSaleEnd": 0,
+        "cost": 100000000,
+        "salesStats": {
+          "quantityBuilt": 0,
+          "quantitySold": 0,
+          "operators": [{ "airlineName": 0, "quantity": 0 }]
+        },
+        "crew": {
+          "pilots": 2,
+          "attendants": 3
+        },
+        "specs": {
+          "length": 340,
+          "wingspan": 360,
+          "fuelCapacity": 6200,
+          "maxRange": 4800,
+          "maxSpeed": 550,
+          "cruiseSpeed": 515,
+          "maxPassengers": 156,
+          "cargoCapacity": 0
+        },
+        "isCargo": false,
+        "seatLayouts": [
+          {
+            "firstClass": 0,
+            "businessClass": 0,
+            "comfort": 0,
+            "economyPlus": 0,
+            "economy": 156
+          },
+          {
+            "firstClass": 16,
+            "businessClass": 0,
+            "comfort": 0,
+            "economyPlus": 18,
+            "economy": 102
+          }
+        ]
+      },
+      {
+        "variantName": "2130",
+        "dateSaleBegin": 0,
+        "dateSaleEnd": 0,
+        "cost": 115000000,
+        "salesStats": {
+          "quantityBuilt": 0,
+          "quantitySold": 0,
+          "operators": [{ "airlineName": 0, "quantity": 0 }]
+        },
+        "crew": {
+          "pilots": 2,
+          "attendants": 3
+        },
+        "specs": {
+          "length": 360,
+          "wingspan": 360,
+          "fuelCapacity": 6500,
+          "maxRange": 5000,
+          "maxSpeed": 550,
+          "cruiseSpeed": 515,
+          "maxPassengers": 186,
+          "cargoCapacity": 0
+        },
+        "isCargo": false,
+        "seatLayouts": [
+          {
+            "firstClass": 0,
+            "businessClass": 0,
+            "comfort": 0,
+            "economyPlus": 0,
+            "economy": 186
+          },
+          {
+            "firstClass": 16,
+            "businessClass": 0,
+            "comfort": 0,
+            "economyPlus": 24,
+            "economy": 126
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "builder": "Birming",
+    "family": "500",
+    "recalls": [],
+    "size": "medium",
+    "variants": [
+      {
+        "variantName": "525",
+        "dateSaleBegin": 0,
+        "dateSaleEnd": 0,
+        "cost": 150000000,
+        "salesStats": {
+          "quantityBuilt": 0,
+          "quantitySold": 0,
+          "operators": [{ "airlineName": 0, "quantity": 0 }]
+        },
+        "crew": {
+          "pilots": 2,
+          "attendants": 3
+        },
+        "specs": {
+          "fuelCapacity": 7400,
+          "maxRange": 5300,
+          "maxSpeed": 545,
+          "cruiseSpeed": 515,
+          "maxPassengers": 222,
+          "cargoCapacity": 0
+        },
+        "isCargo": false,
+        "seatLayouts": [
+          {
+            "firstClass": 0,
+            "businessClass": 0,
+            "comfort": 0,
+            "economyPlus": 0,
+            "economy": 224
+          },
+          {
+            "firstClass": 16,
+            "businessClass": 16,
+            "comfort": 0,
+            "economyPlus": 0,
+            "economy": 150
+          }
+        ]
+      },
+      {
+        "variantName": "525c",
+        "dateSaleBegin": 0,
+        "dateSaleEnd": 0,
+        "cost": 113000000,
+        "salesStats": {
+          "quantityBuilt": 0,
+          "quantitySold": 0,
+          "operators": [{ "airlineName": 0, "quantity": 0 }]
+        },
+        "crew": {
+          "pilots": 2,
+          "attendants": 0
+        },
+        "specs": {
+          "fuelCapacity": 7400,
+          "maxRange": 5300,
+          "maxSpeed": 545,
+          "cruiseSpeed": 515,
+          "maxPassengers": 0,
+          "cargoCapacity": 25
+        },
+        "isCargo": true,
+        "seatLayouts": []
+      }
+    ]
+  }
+]
