@@ -1,8 +1,12 @@
 <script setup>
 import WorldMap from "./components/WorldMap.vue";
 import RightPanel from "./components/RightPanel.vue";
+import BottomPanel from "./components/BottomPanel.vue";
+import PlanePanel from "./components/PlanePanel.vue";
+import RoutePanel from "./components/RoutePanel.vue";
 
 import startGame from "./modules/gameControl";
+import { windowManager } from "@stores/windowManager.js"
 
 startGame();
 </script>
@@ -14,6 +18,11 @@ startGame();
   <div>
     <RightPanel />
   </div>
+  <div>
+    <BottomPanel />
+  </div>
+  <RoutePanel v-if="windowManager.routePanelOpen"/>
+  <PlanePanel v-if="windowManager.airplanePanelOpen"/>
 </template>
 
 <style scoped></style>

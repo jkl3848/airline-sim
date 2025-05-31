@@ -1,0 +1,27 @@
+import { reactive } from "vue";
+
+export const airlineStore = reactive({
+  userAirline: {},
+  otherAirlines: [],
+
+  startNewAirline(airlineName, startingCountry){
+
+    this.userAirline = {
+        name: airlineName,
+        money: 10000000,
+        originCountryCode: "USA",
+        originCountry: "United States",
+        routes: [],
+        airports: [],
+        airplanes: [],
+        employees: []
+    }
+  },
+
+  loadOtherAirlines(){
+
+  }
+
+});
+
+export default airlineStore;

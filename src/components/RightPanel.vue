@@ -1,27 +1,15 @@
 <script setup>
-import { clockStore } from "@stores/worldClock.js";
-
-const currentGameTime = $computed(() => {
-  return new Date(
-    clockStore.GAME_EPOCH.getTime() + clockStore.currentTime * 60
-  );
-});
+import { airlineStore } from "@stores/airlineStore.js"
+import { windowManager } from "@stores/windowManager.js"
 </script>
 
 <template>
   <div id="right-panel">
-    <div>
-      {{
-        currentGameTime.toLocaleString(undefined, {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-        })
-      }}
-    </div>
+
+    <button @click="airlineStore.startNewAirline('Test Line')">New Airline</button>
+        <button @click="windowManager.openPlanePanel()">Buy Plane</button>
+    <button @click="windowManager.openRoutePanel()">Create Route</button>
+
   </div>
 </template>
 

@@ -17,6 +17,10 @@
       "maxAltitude": 12000,
       "maxPassengers": 156
     },
+    "crew": {
+      "pilots": 2,
+      "attendants": 3
+    },
     "cost": 100000000,
     "salesStats": {
       "quantityBuilt": 0,
