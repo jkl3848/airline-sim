@@ -13,7 +13,7 @@ function purchaseAirplanes(){
     const planeObj = purchaseList
     planeObj.id = uuidv4()
 
-    airlineStore.userAirline.airplanes.push(planeObj)
+    airlineStore.userAirline.airplanes = airlineStore.userAirline.airplanes.concat(planeObj)
   }
   purchaseTotal = 0
   purchaseList = []
