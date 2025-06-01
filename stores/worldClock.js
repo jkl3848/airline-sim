@@ -9,8 +9,8 @@ export const clockStore = reactive({
    * Creates a game clock that ticks forward in game time.
    * Supports per-tick, per-day, per-week, per-month, and per-year callbacks.
    * @param {Object} options
-   * @param {number} [options.tickInterval=1000] - Real-time interval in milliseconds between ticks.
-   * @param {number} [options.timeMultiplier=60] - Game seconds advanced per real second.
+   * @param {number} [options.tickInterval=100] - Real-time interval in milliseconds between ticks. (100 is 10 times a second)
+   * @param {number} [options.timeMultiplier=600] - Game seconds advanced per tick. (600 means 6 minutes per tick?)
    * @returns {{
    *   start: () => void,
    *   pause: () => void,
@@ -58,9 +58,9 @@ export const clockStore = reactive({
     }
 
     function tick() {
-      clockStore.currentTime += (tickInterval / 1000) * timeMultiplier;
+      clockStore.currentTime += timeMultiplier;
 
-      const currentDay = Math.floor(clockStore.currentTime / 86400);
+      const currentDay = Math.floor(clockStore.currentTime / 864000);
       const currentWeek = Math.floor(currentDay / 7);
       const currentMonth = Math.floor(currentDay / 30);
       const currentYear = Math.floor(currentDay / 360);
