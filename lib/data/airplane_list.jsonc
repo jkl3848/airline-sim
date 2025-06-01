@@ -20,9 +20,11 @@
     "family": "2100",
     "recalls": [],
     "size": "medium",
+    "planeID": 0,
     "variants": [
       {
         "variantName": "2110",
+        "variantID": 0,
         "dateSaleBegin": 0,
         "dateSaleEnd": 0,
         "cost": 100000000,
@@ -65,6 +67,7 @@
       },
       {
         "variantName": "2130",
+        "variantID": 1,
         "dateSaleBegin": 0,
         "dateSaleEnd": 0,
         "cost": 115000000,
@@ -111,10 +114,12 @@
     "builder": "Birming",
     "family": "500",
     "recalls": [],
+    "planeID": 1,
     "size": "medium",
     "variants": [
       {
         "variantName": "525",
+        "variantID": 0,
         "dateSaleBegin": 0,
         "dateSaleEnd": 0,
         "cost": 150000000,
@@ -155,6 +160,7 @@
       },
       {
         "variantName": "525c",
+        "variantID": 1,
         "dateSaleBegin": 0,
         "dateSaleEnd": 0,
         "cost": 113000000,

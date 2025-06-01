@@ -1,8 +1,42 @@
 <script setup>
 import { airlineStore } from '@stores/airlineStore.js';
 import  airplaneList from "@data/airplane_list.jsonc"
+import { v4 as uuidv4 } from 'uuid';
 
-console.log(airplaneList)
+let purchaseList = $ref([])
+let purchaseTotal = $ref(0)
+
+function purchaseAirplanes(){
+  airlineStore.userAirline.money -= purchaseTotal;
+
+  for(let i = 0; i < purchaseList.length; i++){
+    const planeObj = purchaseList
+    planeObj.id = uuidv4()
+
+    airlineStore.userAirline.airplanes.push(planeObj)
+  }
+  purchaseTotal = 0
+  purchaseList = []
+}
+
+function togglePlaneInOrder(planeVal, varVal, state){
+  if(state){
+    const { variants, ...restOfPlane } = planeVal;
+    const newPlane = {
+      ...restOfPlane,
+      ...varVal
+    };
+
+    purchaseList.push(newPlane)
+    purchaseTotal += varVal.cost
+  }else{
+    purchaseList = purchaseList.filter(obj =>
+      !(obj.planeID === planeVal.planeID && obj.variantID === varVal.variantID)
+    );
+    
+    purchaseTotal -= varVal.cost
+  }
+}
 </script>
 
 <template>
@@ -25,6 +59,7 @@ console.log(airplaneList)
         <tbody>
           <template v-for="plane in airplaneList" :key="plane.family">
             <tr v-for="variant in plane.variants" :key="variant.variantName">
+              <td class="border px-2 py-1"><input type="checkbox" :disabled="variant.cost > airlineStore.userAirline.money" @click="togglePlaneInOrder(plane, variant, $event.target.checked)"></td>
               <td class="border px-2 py-1">{{ plane.builder }} {{ variant.variantName }}</td>
               <td class="border px-2 py-1">${{ variant.cost.toLocaleString() }}</td>
               <td class="border px-2 py-1">{{ variant.crew.pilots }} / {{ variant.crew.attendants }}</td>
@@ -39,7 +74,30 @@ console.log(airplaneList)
           </template>
         </tbody>
       </table>
+    
+      <div>
+        <div>Order:</div>
+          <table>
+            <thead class="bg-gray-100 sticky top-0">
+              <tr>
+                <th class="border px-2 py-1">Plane</th>
+                <th class="border px-2 py-1">Cost (USD)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="plane in purchaseList">
+                <td class="border px-2 py-1">{{ plane.builder }} {{ plane.variantName }}</td>
+                <td class="border px-2 py-1">${{ plane.cost.toLocaleString() }}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      <div>
+        Total: ${{ purchaseTotal.toLocaleString() }}
+      </div>
+      <button @click="purchaseAirplanes()">Purchase</button>
     </div>
+
   </div>
 </template>
 

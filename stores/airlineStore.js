@@ -8,7 +8,7 @@ export const airlineStore = reactive({
 
     this.userAirline = {
         name: airlineName,
-        money: 10000000,
+        money: 100000000,
         originCountryCode: "USA",
         originCountry: "United States",
         routes: [],
