@@ -2,24 +2,22 @@
  * setting up the user, etc.
  */
 import { clockStore } from "@stores/worldClock.js";
-import createEventQueue from "./eventQueue.js";
+import { eventQueue } from "@stores/eventQueue.js";
 
 export default function startGame() {
   clockStore.gameClock = clockStore.mainGameClock({
     tickInterval: 100,
-    timeMultiplier: 6000,
+    timeMultiplier: 600,
   });
-  const events = createEventQueue();
 
   clockStore.gameClock.onTick((currentTime) => {
-    events.process(currentTime);
+    eventQueue.process(currentTime);
   });
 
-  events.schedule(3600, () => console.log("Flight departs at 1 game hour"));
-  events.schedule(86400, () => console.log("Salary paid at 1 game day"));
+  eventQueue.schedule(60, () => console.log("Flight departs at 1 game hour"));
 
   clockStore.gameClock.onDayEnd((day) => {
-    console.log(`End of game day ${day}`);
+    console.log(`End of game day ${day} at ${clockStore.currentTime}`);
     // trigger salary payments, maintenance checks, etc.
   });
 

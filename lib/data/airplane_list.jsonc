@@ -1,0 +1,394 @@
+/**
+* Builders:
+*   - Airscape (Airbus)
+*   - Birming (Boeing)
+*   - Bradie (Bombardier)
+*   - BTA (BAE)
+*   - Coleman (Cessna)
+*   - Embassy (Embraer)
+*   - Merriman Downer (McDonnell Douglas)
+*   - Tumenoff (Tupolev)
+* Each plan is just the family,
+* Variants are the different versions in the family.
+* Variants can have multiple seat layouts
+* Plane specs need to be in meters, miles, gallons and mph
+* Only fill cargo capacity if cargo variant
+*/
+[
+  {
+    "builder": "Airscape",
+    "family": "2100",
+    "recalls": [],
+    "size": "medium",
+    "planeID": 0,
+    "variants": [
+      {
+        "variantName": "2110",
+        "variantID": 0,
+        "dateSaleBegin": 0,
+        "dateSaleEnd": 0,
+        "cost": 100000000,
+        "salesStats": {
+          "quantityBuilt": 0,
+          "quantitySold": 0,
+          "operators": [{ "airlineName": 0, "quantity": 0 }]
+        },
+        "crew": {
+          "pilots": 2,
+          "attendants": 3
+        },
+        "specs": {
+          "fuelCapacity": 6200,
+          "maxRange": 4800,
+          "maxSpeed": 550,
+          "cruiseSpeed": 515,
+          "maxPassengers": 156,
+          "cargoCapacity": 0
+        },
+        "isCargo": false,
+        "seatLayouts": [
+          {
+            "firstClass": 0,
+            "businessClass": 0,
+            "comfort": 0,
+            "economyPlus": 0,
+            "economy": 156
+          },
+          {
+            "firstClass": 16,
+            "businessClass": 0,
+            "comfort": 0,
+            "economyPlus": 18,
+            "economy": 102
+          }
+        ]
+      },
+      {
+        "variantName": "2130",
+        "variantID": 1,
+        "dateSaleBegin": 0,
+        "dateSaleEnd": 0,
+        "cost": 115000000,
+        "salesStats": {
+          "quantityBuilt": 0,
+          "quantitySold": 0,
+          "operators": [{ "airlineName": 0, "quantity": 0 }]
+        },
+        "crew": {
+          "pilots": 2,
+          "attendants": 3
+        },
+        "specs": {
+          "fuelCapacity": 6500,
+          "maxRange": 5000,
+          "maxSpeed": 550,
+          "cruiseSpeed": 515,
+          "maxPassengers": 186,
+          "cargoCapacity": 0
+        },
+        "isCargo": false,
+        "seatLayouts": [
+          {
+            "firstClass": 0,
+            "businessClass": 0,
+            "comfort": 0,
+            "economyPlus": 0,
+            "economy": 186
+          },
+          {
+            "firstClass": 16,
+            "businessClass": 0,
+            "comfort": 0,
+            "economyPlus": 24,
+            "economy": 126
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "builder": "Birming",
+    "family": "500",
+    "recalls": [],
+    "planeID": 1,
+    "size": "medium",
+    "variants": [
+      {
+        "variantName": "525",
+        "variantID": 0,
+        "dateSaleBegin": 0,
+        "dateSaleEnd": 0,
+        "cost": 150000000,
+        "salesStats": {
+          "quantityBuilt": 0,
+          "quantitySold": 0,
+          "operators": [{ "airlineName": 0, "quantity": 0 }]
+        },
+        "crew": {
+          "pilots": 2,
+          "attendants": 3
+        },
+        "specs": {
+          "fuelCapacity": 7400,
+          "maxRange": 5300,
+          "maxSpeed": 545,
+          "cruiseSpeed": 515,
+          "maxPassengers": 222,
+          "cargoCapacity": 0
+        },
+        "isCargo": false,
+        "seatLayouts": [
+          {
+            "firstClass": 0,
+            "businessClass": 0,
+            "comfort": 0,
+            "economyPlus": 0,
+            "economy": 224
+          },
+          {
+            "firstClass": 16,
+            "businessClass": 16,
+            "comfort": 0,
+            "economyPlus": 0,
+            "economy": 150
+          }
+        ]
+      },
+      {
+        "variantName": "525c",
+        "variantID": 1,
+        "dateSaleBegin": 0,
+        "dateSaleEnd": 0,
+        "cost": 113000000,
+        "salesStats": {
+          "quantityBuilt": 0,
+          "quantitySold": 0,
+          "operators": [{ "airlineName": 0, "quantity": 0 }]
+        },
+        "crew": {
+          "pilots": 2,
+          "attendants": 0
+        },
+        "specs": {
+          "fuelCapacity": 7400,
+          "maxRange": 5300,
+          "maxSpeed": 545,
+          "cruiseSpeed": 515,
+          "maxPassengers": 0,
+          "cargoCapacity": 25
+        },
+        "isCargo": true,
+        "seatLayouts": []
+      }
+    ]
+  },
+  {
+    "builder": "Bradie",
+    "family": "H300",
+    "recalls": [],
+    "size": "medium",
+    "planeID": 3,
+    "variants": [
+      {
+        "variantName": "H300-A",
+        "variantID": 0,
+        "dateSaleBegin": 0,
+        "dateSaleEnd": 0,
+        "cost": 27500000,
+        "salesStats": {
+          "quantityBuilt": 0,
+          "quantitySold": 0,
+          "operators": [{ "airlineName": 0, "quantity": 0 }]
+        },
+        "crew": {
+          "pilots": 2,
+          "attendants": 2
+        },
+        "specs": {
+          "fuelCapacity": 1700,
+          "maxRange": 1850,
+          "maxSpeed": 425,
+          "cruiseSpeed": 410,
+          "maxPassengers": 78,
+          "cargoCapacity": 0
+        },
+        "isCargo": false,
+        "seatLayouts": [
+          {
+            "firstClass": 0,
+            "businessClass": 0,
+            "comfort": 0,
+            "economyPlus": 0,
+            "economy": 78
+          },
+          {
+            "firstClass": 0,
+            "businessClass": 12,
+            "comfort": 0,
+            "economyPlus": 0,
+            "economy": 62
+          }
+        ]
+      },
+       {
+        "variantName": "H300-AL",
+        "variantID": 1,
+        "dateSaleBegin": 0,
+        "dateSaleEnd": 0,
+        "cost": 27700000,
+        "salesStats": {
+          "quantityBuilt": 0,
+          "quantitySold": 0,
+          "operators": [{ "airlineName": 0, "quantity": 0 }]
+        },
+        "crew": {
+          "pilots": 2,
+          "attendants": 2
+        },
+        "specs": {
+          "fuelCapacity": 1900,
+          "maxRange": 1900,
+          "maxSpeed": 425,
+          "cruiseSpeed": 405,
+          "maxPassengers": 86,
+          "cargoCapacity": 0
+        },
+        "isCargo": false,
+        "seatLayouts": [
+          {
+            "firstClass": 0,
+            "businessClass": 0,
+            "comfort": 0,
+            "economyPlus": 0,
+            "economy": 86
+          },
+          {
+            "firstClass": 0,
+            "businessClass": 12,
+            "comfort": 0,
+            "economyPlus": 0,
+            "economy": 70
+          }
+        ]
+      },
+      {
+        "variantName": "H300-B",
+        "variantID": 1,
+        "dateSaleBegin": 0,
+        "dateSaleEnd": 0,
+        "cost": 28600000,
+        "salesStats": {
+          "quantityBuilt": 0,
+          "quantitySold": 0,
+          "operators": [{ "airlineName": 0, "quantity": 0 }]
+        },
+        "crew": {
+          "pilots": 2,
+          "attendants": 2
+        },
+        "specs": {
+          "fuelCapacity": 1900,
+          "maxRange": 1840,
+          "maxSpeed": 425,
+          "cruiseSpeed": 405,
+          "maxPassengers": 98,
+          "cargoCapacity": 0
+        },
+        "isCargo": false,
+        "seatLayouts": [
+          {
+            "firstClass": 0,
+            "businessClass": 0,
+            "comfort": 0,
+            "economyPlus": 0,
+            "economy": 98
+          },
+          {
+            "firstClass": 0,
+            "businessClass": 12,
+            "comfort": 0,
+            "economyPlus": 0,
+            "economy": 82
+          }
+        ]
+      }
+    ]
+  },
+    {
+    "builder": "Coleman",
+    "family": "601",
+    "recalls": [],
+    "size": "small",
+    "planeID": 4,
+    "variants": [
+      {
+        "variantName": "601",
+        "variantID": 0,
+        "dateSaleBegin": 0,
+        "dateSaleEnd": 0,
+        "cost": 350000,
+        "salesStats": {
+          "quantityBuilt": 0,
+          "quantitySold": 0,
+          "operators": [{ "airlineName": 0, "quantity": 0 }]
+        },
+        "crew": {
+          "pilots": 1,
+          "attendants": 0
+        },
+        "specs": {
+          "fuelCapacity": 220,
+          "maxRange": 1400,
+          "maxSpeed": 260,
+          "cruiseSpeed": 240,
+          "maxPassengers": 9,
+          "cargoCapacity": 0
+        },
+        "isCargo": false,
+        "seatLayouts": [
+          {
+            "firstClass": 0,
+            "businessClass": 0,
+            "comfort": 0,
+            "economyPlus": 0,
+            "economy": 9
+          }
+        ]
+      },
+             {
+        "variantName": "601 XL",
+        "variantID": 0,
+        "dateSaleBegin": 0,
+        "dateSaleEnd": 0,
+        "cost": 450000,
+        "salesStats": {
+          "quantityBuilt": 0,
+          "quantitySold": 0,
+          "operators": [{ "airlineName": 0, "quantity": 0 }]
+        },
+        "crew": {
+          "pilots": 1,
+          "attendants": 0
+        },
+        "specs": {
+          "fuelCapacity": 280,
+          "maxRange": 1650,
+          "maxSpeed": 250,
+          "cruiseSpeed": 235,
+          "maxPassengers": 12,
+          "cargoCapacity": 0
+        },
+        "isCargo": false,
+        "seatLayouts": [
+          {
+            "firstClass": 0,
+            "businessClass": 0,
+            "comfort": 0,
+            "economyPlus": 0,
+            "economy": 12
+          }
+        ]
+      }
+    ]
+  },
+]
