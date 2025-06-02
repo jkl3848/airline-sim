@@ -1,133 +1,182 @@
 <script setup>
-import { airlineStore } from '@stores/airlineStore.js';
-import  airplaneList from "@data/airplane_list.jsonc"
-import { v4 as uuidv4 } from 'uuid';
-import { windowManager } from "@stores/windowManager.js"
+import { airlineStore } from "@stores/airlineStore.js";
+import airplaneList from "@data/airplane_list.jsonc";
+import { v4 as uuidv4 } from "uuid";
+import { windowManager } from "@stores/windowManager.js";
 
-import { FilterMatchMode } from '@primevue/core/api';
+import { FilterMatchMode } from "@primevue/core/api";
 
-let purchaseList = $ref([])
-let purchaseTotal = $ref(0)
+let purchaseList = $ref([]);
+let purchaseTotal = $ref(0);
+let selectedProducts = $ref();
 
 let expandedRows = $ref({});
 const filters = $ref({
-    global: { value: null, matchMode: FilterMatchMode.CONTAINS }
+  global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 });
 
-function purchaseAirplanes(){
+function purchaseAirplanes() {
   airlineStore.userAirline.money -= purchaseTotal;
 
-  for(let i = 0; i < purchaseList.length; i++){
-    const planeObj = purchaseList
-    planeObj.id = uuidv4()
+  for (let i = 0; i < purchaseList.length; i++) {
+    const planeObj = purchaseList;
+    planeObj.id = uuidv4();
 
-    airlineStore.userAirline.airplanes = airlineStore.userAirline.airplanes.concat(planeObj)
+    airlineStore.userAirline.airplanes =
+      airlineStore.userAirline.airplanes.concat(planeObj);
   }
-  purchaseTotal = 0
-  purchaseList = []
+  purchaseTotal = 0;
+  purchaseList = [];
 }
 
-function togglePlaneInOrder(planeVal, varVal, state){
-  if(state){
+function togglePlaneInOrder(planeVal, varVal, state) {
+  console.log(planeVal);
+  console.log(varVal);
+  console.log(state);
+  if (state) {
     const { variants, ...restOfPlane } = planeVal;
     const newPlane = {
       ...restOfPlane,
-      ...varVal
+      ...varVal,
     };
 
-    purchaseList.push(newPlane)
-    purchaseTotal += varVal.cost
-  }else{
-    purchaseList = purchaseList.filter(obj =>
-      !(obj.planeID === planeVal.planeID && obj.variantID === varVal.variantID)
+    purchaseList.push(newPlane);
+    purchaseTotal += varVal.cost;
+  } else {
+    purchaseList = purchaseList.filter(
+      (obj) =>
+        !(
+          obj.planeID === planeVal.planeID && obj.variantID === varVal.variantID
+        )
     );
-    
-    purchaseTotal -= varVal.cost
+
+    purchaseTotal -= varVal.cost;
   }
 }
 
 const onRowExpand = (event) => {
-    // toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
+  // toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
 };
 
 const onRowCollapse = (event) => {
-    // toast.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
+  // toast.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
 };
 
 const expandAll = () => {
-    expandedRows = airplaneList.reduce((acc, p) => (acc[p.planeID] = true) && acc, {});
+  expandedRows = airplaneList.reduce(
+    (acc, p) => (acc[p.planeID] = true) && acc,
+    {}
+  );
 };
 
 const collapseAll = () => {
-    expandedRows = null;
+  expandedRows = null;
 };
 </script>
 
 <template>
-  <Dialog v-model:visible="windowManager.airplanePanelOpen" modal header="Buy an airplane!">
-    <div class="table-wrapper">
-      <DataTable v-model:filters="filters" v-model:expandedRows="expandedRows" :value="airplaneList" dataKey="planeID" @rowExpand="onRowExpand" @rowCollapse="onRowCollapse" tableStyle="min-width: 60rem">
-            <template #header>
-                <div class="flex flex-wrap justify-end gap-2">
-                    <Button text icon="pi pi-plus" label="Expand All" @click="expandAll" />
-                    <Button text icon="pi pi-minus" label="Collapse All" @click="collapseAll" />
-                <div class="relative">
-                        <i class="pi pi-search absolute top-1/2 -mt-2 text-surface-400 leading-none end-3 z-1" />
-                        <InputText v-model="filters['global'].value" placeholder="Search" />
-                    </div>
-                  </div>
-            </template>
-            <Column expander style="width: 5rem" />
-            <Column field="builder" header="Builder" sortable></Column>
-            <Column field="family" header="Family"></Column>
-            <Column field="variants.length" header="Variants"></Column>
-            <Column field="size" header="Size" sortable></Column>
+  <Dialog
+    v-model:visible="windowManager.airplanePanelOpen"
+    modal
+    header="Buy an airplane!"
+    pt:root="w-[80vw] h-[80vh] max-w-[80vw] max-h-[80vh]"
+  >
+    <div>
+      <DataTable
+        v-model:filters="filters"
+        v-model:expandedRows="expandedRows"
+        :value="airplaneList"
+        dataKey="planeID"
+        @rowExpand="onRowExpand"
+        @rowCollapse="onRowCollapse"
+        tableStyle="min-width: 60rem"
+      >
+        <template #header>
+          <div class="flex flex-wrap justify-end gap-2">
+            <Button
+              text
+              icon="pi pi-plus"
+              label="Expand All"
+              @click="expandAll"
+            />
+            <Button
+              text
+              icon="pi pi-minus"
+              label="Collapse All"
+              @click="collapseAll"
+            />
+            <div class="relative">
+              <i
+                class="pi pi-search absolute top-1/2 -mt-2 text-surface-400 leading-none end-3 z-1"
+              />
+              <InputText
+                v-model="filters['global'].value"
+                placeholder="Search"
+              />
+            </div>
+          </div>
+        </template>
+        <Column expander style="width: 5rem" />
+        <Column field="builder" header="Builder" sortable></Column>
+        <Column field="family" header="Family"></Column>
+        <Column field="variants.length" header="Variants"></Column>
+        <Column field="size" header="Size" sortable></Column>
 
-            <template #expansion="slotProps">
-                <div class="p-4">
-                    <DataTable :value="slotProps.data.variants">
-                        <Column selection-mode="multiple"></Column>
-                        <Column field="variantName" header="Variant" sortable></Column>
-                        <Column field="cost" header="Cost" sortable>
-                            <template #body="slotProps">
-                                ${{ slotProps.data.cost.toLocaleString() }}
-                            </template>
-                        </Column>
-                        <Column field="crew" header="Crew P/A">
-                            <template #body="slotProps">
-                                {{ slotProps.data.crew.pilots }} / {{ slotProps.data.crew.attendants }}
-                            </template>
-                        </Column>
-                    </DataTable>
-                </div>
-            </template>
-        </DataTable>
+        <template #expansion="slotProps">
+          <div class="p-4">
+            <DataTable
+              v-model:selection="selectedProducts"
+              :value="slotProps.data.variants"
+              @row-select="
+                togglePlaneInOrder(slotProps.data, $event.data, true)
+              "
+              @row-unselect="
+                togglePlaneInOrder(slotProps.data, $event.data, false)
+              "
+            >
+              <Column selection-mode="multiple"></Column>
+              <Column field="variantName" header="Variant" sortable></Column>
+              <Column field="cost" header="Cost" sortable>
+                <template #body="slotProps">
+                  ${{ slotProps.data.cost.toLocaleString() }}
+                </template>
+              </Column>
+              <Column field="crew" header="Crew P/A">
+                <template #body="slotProps">
+                  {{ slotProps.data.crew.pilots }} /
+                  {{ slotProps.data.crew.attendants }}
+                </template>
+              </Column>
+            </DataTable>
+          </div>
+        </template>
+      </DataTable>
 
       <div>
         <div>Order:</div>
-          <table>
-            <thead class="bg-gray-100 sticky top-0">
-              <tr>
-                <th class="border px-2 py-1">Plane</th>
-                <th class="border px-2 py-1">Cost (USD)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="plane in purchaseList">
-                <td class="border px-2 py-1">{{ plane.builder }} {{ plane.variantName }}</td>
-                <td class="border px-2 py-1">${{ plane.cost.toLocaleString() }}</td>
-              </tr>
-            </tbody>
-          </table>
+        <table>
+          <thead class="bg-gray-100 sticky top-0">
+            <tr>
+              <th class="border px-2 py-1">Plane</th>
+              <th class="border px-2 py-1">Cost (USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="plane in purchaseList">
+              <td class="border px-2 py-1">
+                {{ plane.builder }} {{ plane.variantName }}
+              </td>
+              <td class="border px-2 py-1">
+                ${{ plane.cost.toLocaleString() }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div>
-        Total: ${{ purchaseTotal.toLocaleString() }}
-      </div>
+      <div>Total: ${{ purchaseTotal.toLocaleString() }}</div>
       <Button @click="purchaseAirplanes()" label="Purchase" />
     </div>
-
   </Dialog>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

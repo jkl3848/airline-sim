@@ -1,23 +1,26 @@
 <script setup>
-import { airlineStore } from '@stores/airlineStore.js';
+import { airlineStore } from "@stores/airlineStore.js";
+import { windowManager } from "@stores/windowManager.js";
 </script>
 
 <template>
-  <div id="route-panel">
-        <h2>Create a route!</h2>
+  <Dialog
+    v-model:visible="windowManager.routePanelOpen"
+    modal
+    header="Create a Route!"
+  >
+    <h2>Create a route!</h2>
 
-        <div>
-          <table>
-            <tbody>
-              <tr v-for="(plane, index) in airlineStore.userAirline.airplanes">
-                <td>
-                  {{ plane.builder }} {{ plane.variantName }} {{ index + 1 }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-  </div>
+    <div>
+      <table>
+        <tbody>
+          <tr v-for="(plane, index) in airlineStore.userAirline.airplanes">
+            <td>{{ plane.builder }} {{ plane.variantName }} {{ index + 1 }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </Dialog>
 </template>
 
 <style scoped>
