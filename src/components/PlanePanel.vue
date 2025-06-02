@@ -2,9 +2,17 @@
 import { airlineStore } from '@stores/airlineStore.js';
 import  airplaneList from "@data/airplane_list.jsonc"
 import { v4 as uuidv4 } from 'uuid';
+import { windowManager } from "@stores/windowManager.js"
+
+import { FilterMatchMode } from '@primevue/core/api';
 
 let purchaseList = $ref([])
 let purchaseTotal = $ref(0)
+
+let expandedRows = $ref({});
+const filters = $ref({
+    global: { value: null, matchMode: FilterMatchMode.CONTAINS }
+});
 
 function purchaseAirplanes(){
   airlineStore.userAirline.money -= purchaseTotal;
@@ -37,44 +45,64 @@ function togglePlaneInOrder(planeVal, varVal, state){
     purchaseTotal -= varVal.cost
   }
 }
+
+const onRowExpand = (event) => {
+    // toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
+};
+
+const onRowCollapse = (event) => {
+    // toast.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
+};
+
+const expandAll = () => {
+    expandedRows = airplaneList.reduce((acc, p) => (acc[p.planeID] = true) && acc, {});
+};
+
+const collapseAll = () => {
+    expandedRows = null;
+};
 </script>
 
 <template>
-  <div id="airplane-panel">
-    <h2 class="text-lg font-semibold mb-2 px-4 pt-4">Buy an airplane!</h2>
+  <Dialog v-model:visible="windowManager.airplanePanelOpen" modal header="Buy an airplane!">
     <div class="table-wrapper">
-      <table class="table-auto w-full border-collapse border border-gray-300 text-sm">
-        <thead class="bg-gray-100 sticky top-0">
-          <tr>
-            <th class="border px-2 py-1">Plane</th>
-            <th class="border px-2 py-1">Cost (USD)</th>
-            <th class="border px-2 py-1">Crew (P/A)</th>
-            <th class="border px-2 py-1">Max Passengers</th>
-            <th class="border px-2 py-1">Max Cargo</th>
-            <th class="border px-2 py-1">Fuel Capacity</th>
-            <th class="border px-2 py-1">Range</th>
-            <th class="border px-2 py-1">Speed (Max/Cruise)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <template v-for="plane in airplaneList" :key="plane.family">
-            <tr v-for="variant in plane.variants" :key="variant.variantName">
-              <td class="border px-2 py-1"><input type="checkbox" :disabled="variant.cost > airlineStore.userAirline.money" @click="togglePlaneInOrder(plane, variant, $event.target.checked)"></td>
-              <td class="border px-2 py-1">{{ plane.builder }} {{ variant.variantName }}</td>
-              <td class="border px-2 py-1">${{ variant.cost.toLocaleString() }}</td>
-              <td class="border px-2 py-1">{{ variant.crew.pilots }} / {{ variant.crew.attendants }}</td>
-              <td class="border px-2 py-1">{{ variant.specs.maxPassengers }}</td>
-              <td class="border px-2 py-1">{{ variant.specs.cargoCapacity }}T</td>
-              <td class="border px-2 py-1">{{ variant.specs.fuelCapacity }}</td>
-              <td class="border px-2 py-1">{{ variant.specs.maxRange }}</td>
-              <td class="border px-2 py-1">
-                {{ variant.specs.maxSpeed }} / {{ variant.specs.cruiseSpeed }}
-              </td>
-            </tr>
-          </template>
-        </tbody>
-      </table>
-    
+      <DataTable v-model:filters="filters" v-model:expandedRows="expandedRows" :value="airplaneList" dataKey="planeID" @rowExpand="onRowExpand" @rowCollapse="onRowCollapse" tableStyle="min-width: 60rem">
+            <template #header>
+                <div class="flex flex-wrap justify-end gap-2">
+                    <Button text icon="pi pi-plus" label="Expand All" @click="expandAll" />
+                    <Button text icon="pi pi-minus" label="Collapse All" @click="collapseAll" />
+                <div class="relative">
+                        <i class="pi pi-search absolute top-1/2 -mt-2 text-surface-400 leading-none end-3 z-1" />
+                        <InputText v-model="filters['global'].value" placeholder="Search" />
+                    </div>
+                  </div>
+            </template>
+            <Column expander style="width: 5rem" />
+            <Column field="builder" header="Builder" sortable></Column>
+            <Column field="family" header="Family"></Column>
+            <Column field="variants.length" header="Variants"></Column>
+            <Column field="size" header="Size" sortable></Column>
+
+            <template #expansion="slotProps">
+                <div class="p-4">
+                    <DataTable :value="slotProps.data.variants">
+                        <Column selection-mode="multiple"></Column>
+                        <Column field="variantName" header="Variant" sortable></Column>
+                        <Column field="cost" header="Cost" sortable>
+                            <template #body="slotProps">
+                                ${{ slotProps.data.cost.toLocaleString() }}
+                            </template>
+                        </Column>
+                        <Column field="crew" header="Crew P/A">
+                            <template #body="slotProps">
+                                {{ slotProps.data.crew.pilots }} / {{ slotProps.data.crew.attendants }}
+                            </template>
+                        </Column>
+                    </DataTable>
+                </div>
+            </template>
+        </DataTable>
+
       <div>
         <div>Order:</div>
           <table>
@@ -95,34 +123,11 @@ function togglePlaneInOrder(planeVal, varVal, state){
       <div>
         Total: ${{ purchaseTotal.toLocaleString() }}
       </div>
-      <button @click="purchaseAirplanes()">Purchase</button>
+      <Button @click="purchaseAirplanes()" label="Purchase" />
     </div>
 
-  </div>
+  </Dialog>
 </template>
 
 <style scoped>
-#airplane-panel {
-  position: absolute;
-  top: 10%;
-  left: 5%;
-  z-index: 150;
-
-  width: 80vw;
-  max-width: 1200px;
-  height: 70vh;
-
-  background-color: white;
-  color: black;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-}
-
-.table-wrapper {
-  height: calc(100% - 3rem);
-  overflow: auto;
-  padding: 0 1rem 1rem;
-}
 </style>

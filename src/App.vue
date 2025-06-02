@@ -21,8 +21,8 @@ startGame();
   <div>
     <BottomPanel />
   </div>
-  <RoutePanel v-if="windowManager.routePanelOpen"/>
-  <PlanePanel v-if="windowManager.airplanePanelOpen"/>
+  <RoutePanel />
+  <PlanePanel />
 </template>
 
 <style scoped></style>

@@ -15,6 +15,8 @@ import Divider from "./volt/Divider.vue";
 import Drawer from "./volt/Drawer.vue";
 import InputText from "./volt/InputText.vue";
 
+import Column from 'primevue/column';
+
 
 const app = createApp(App);
 app.use(PrimeVue, {
@@ -28,6 +30,7 @@ app.component('AccordionContent', AccordionContent)
 app.component('AccordionHeader', AccordionHeader)
 app.component('AccordionPanel', AccordionPanel)
 app.component('Button', Button)
+app.component('Column', Column)
 app.component('DataTable', DataTable)
 app.component('Dialog', Dialog)
 app.component('Divider', Divider)
