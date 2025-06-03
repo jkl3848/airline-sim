@@ -54,24 +54,16 @@ function togglePlaneInOrder(planeVal, varVal, state) {
   }
 }
 
-const onRowExpand = (event) => {
-  // toast.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
-};
-
-const onRowCollapse = (event) => {
-  // toast.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
-};
-
-const expandAll = () => {
+function expandAll() {
   expandedRows = airplaneList.reduce(
     (acc, p) => (acc[p.planeID] = true) && acc,
     {}
   );
-};
+}
 
-const collapseAll = () => {
+function collapseAll() {
   expandedRows = null;
-};
+}
 </script>
 
 <template>
@@ -127,26 +119,42 @@ const collapseAll = () => {
             <DataTable
               v-model:selection="selectedProducts"
               :value="slotProps.data.variants"
-              @row-select="
-                togglePlaneInOrder(slotProps.data, $event.data, true)
-              "
-              @row-unselect="
-                togglePlaneInOrder(slotProps.data, $event.data, false)
-              "
             >
-              <Column selection-mode="multiple"></Column>
               <Column field="variantName" header="Variant" sortable></Column>
               <Column field="cost" header="Cost" sortable>
-                <template #body="slotProps">
-                  ${{ slotProps.data.cost.toLocaleString() }}
+                <template #body="variantProps">
+                  ${{ variantProps.data.cost.toLocaleString() }}
                 </template>
               </Column>
               <Column field="crew" header="Crew P/A">
-                <template #body="slotProps">
-                  {{ slotProps.data.crew.pilots }} /
-                  {{ slotProps.data.crew.attendants }}
+                <template #body="variantProps">
+                  {{ variantProps.data.crew.pilots }} /
+                  {{ variantProps.data.crew.attendants }}
                 </template>
               </Column>
+              <Column header="Purchase">
+                <template #body="variantProps">
+                  <Button
+                    label="+"
+                    @click="
+                      togglePlaneInOrder(
+                        slotProps.data,
+                        variantProps.data,
+                        true
+                      )
+                    "
+                  />
+                  <Button
+                    label="-"
+                    @click="
+                      togglePlaneInOrder(
+                        slotProps.data,
+                        variantProps.data,
+                        false
+                      )
+                    "
+                  /> </template
+              ></Column>
             </DataTable>
           </div>
         </template>
