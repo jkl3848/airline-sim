@@ -11,6 +11,7 @@ let purchaseTotal = $ref(0);
 let selectedProducts = $ref();
 
 let expandedRows = $ref({});
+let subExpansion = $ref({});
 const filters = $ref({
   global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 });
@@ -38,6 +39,7 @@ function togglePlaneInOrder(planeVal, varVal, state) {
     const newPlane = {
       ...restOfPlane,
       ...varVal,
+      routes: [],
     };
 
     purchaseList.push(newPlane);
@@ -117,9 +119,11 @@ function collapseAll() {
         <template #expansion="slotProps">
           <div class="p-4">
             <DataTable
-              v-model:selection="selectedProducts"
               :value="slotProps.data.variants"
+              dataKey="variantID"
+              v-model:expandedRows="subExpansion"
             >
+              <Column expander style="width: 5rem" />
               <Column field="variantName" header="Variant" sortable></Column>
               <Column field="cost" header="Cost" sortable>
                 <template #body="variantProps">
@@ -132,6 +136,17 @@ function collapseAll() {
                   {{ variantProps.data.crew.attendants }}
                 </template>
               </Column>
+              <Column
+                field="specs.maxPassengers"
+                header="Passengers"
+                sortable
+              ></Column>
+              <Column field="specs.cargoCapacity" header="Cargo" sortable>
+                <template #body="variantProps">
+                  ${{ variantProps.data.specs.cargoCapacity }}T
+                </template>
+              </Column>
+
               <Column header="Purchase">
                 <template #body="variantProps">
                   <Button
@@ -155,6 +170,13 @@ function collapseAll() {
                     "
                   /> </template
               ></Column>
+
+              <template #expansion="detailProps">
+                <div>
+                  Range: {{ detailProps.data.specs.maxRange }} Speed:
+                  {{ detailProps.data.specs.maxSpeed }}
+                </div>
+              </template>
             </DataTable>
           </div>
         </template>
