@@ -1503,6 +1503,7 @@ __metadata:
     "@tailwindcss/vite": "npm:^4.1.8"
     "@vitejs/plugin-vue": "npm:^5.2.1"
     "@vue-macros/reactivity-transform": "npm:^3.0.0-beta.12"
+    geolib: "npm:^3.3.4"
     maplibre-gl: "npm:^5.2.0"
     primevue: "npm:^4.3.4"
     tailwind-merge: "npm:^3.3.0"
@@ -2028,6 +2029,13 @@ __metadata:
   version: 4.0.2
   resolution: "geojson-vt@npm:4.0.2"
   checksum: 10/2a9e1894321184c48612221b4649d8cc5afa972962ee21b91c09b9d85d9076777164cce6f1d438d0bfb0c7d6b4713f518cf0501de210127f9a601e316197eb91
+  languageName: node
+  linkType: hard
+
+"geolib@npm:^3.3.4":
+  version: 3.3.4
+  resolution: "geolib@npm:3.3.4"
+  checksum: 10/a40ca6a84afc0a511509b34839839923ea9251d837cd6b2e56ebc968911ba8a10209ea604878f52606efe41204eb20d1246b2e545ff1c1027f0913c5e4a97907
   languageName: node
   linkType: hard
 
