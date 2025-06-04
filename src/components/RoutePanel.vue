@@ -5,6 +5,7 @@ import airportList from "@data/airport_list.jsonc";
 
 import { FilterMatchMode } from "@primevue/core/api";
 import { onMounted } from "vue";
+import getValidEndAirport from "@/modules/routeCalculation";
 
 const filters = $ref({
   global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -14,6 +15,10 @@ let viewPlanePicker = $ref(false);
 let viewRouteCreator = $ref(false);
 
 const planeSelection = $ref();
+
+function getRouteEndOptions() {
+  getValidEndAirport();
+}
 
 onMounted(() => {
   viewPlanePicker = true;
@@ -86,6 +91,8 @@ onMounted(() => {
       />
     </div>
     <div v-else-if="viewRouteCreator">
+      <!-- Show list of airports. Two lists, ones you have terminals and ones you dont.
+       Then on selection find valid ends. -->
       {{ airportList }}
     </div>
     <div v-else>
