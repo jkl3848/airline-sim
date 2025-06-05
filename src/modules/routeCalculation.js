@@ -35,8 +35,6 @@ export default function getValidEndAirport(
           1000
         ) / 1000;
 
-      console.log(distanceBetweenAirports);
-
       if (distanceBetweenAirports < maxRange) {
         listOfValidAirportsCodes.push(thisAirP.code);
       }
