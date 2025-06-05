@@ -1,23 +1,204 @@
 <script setup>
-import { airlineStore } from '@stores/airlineStore.js';
+import { airlineStore } from "@stores/airlineStore.js";
+import { windowManager } from "@stores/windowManager.js";
+import airportList from "@data/airport_list.jsonc";
+
+import { FilterMatchMode } from "@primevue/core/api";
+import { onMounted } from "vue";
+import getValidEndAirport from "@/modules/routeCalculation";
+
+const filters = $ref({
+  global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+});
+
+let viewPlanePicker = $ref(false);
+let viewRouteStartPicker = $ref(false);
+let viewRouteEndPicker = $ref(false);
+
+const planeSelection = $ref();
+const routeStartSelection = $ref();
+const routeEndSelection = $ref();
+
+const possibleEndCodes = $computed(() => {
+  return getValidEndAirport(
+    routeStartSelection.code,
+    {
+      latitude: routeStartSelection.latitude,
+      longitude: routeStartSelection.longitude,
+    },
+    { planeID: planeSelection.planeID, variantID: planeSelection.variantID }
+  );
+});
+
+function createNewRoute() {
+  airlineStore.userAirline.routes.push({
+    startAirport: routeStartSelection.code,
+    endAirport: routeEndSelection.code,
+    flights: [
+      {
+        airplane: planeSelection.id,
+        day: 0,
+        times: [600, 1320],
+      },
+    ],
+  });
+}
+
+onMounted(() => {
+  viewPlanePicker = true;
+});
 </script>
 
 <template>
-  <div id="route-panel">
-        <h2>Create a route!</h2>
+  <Dialog
+    v-model:visible="windowManager.routePanelOpen"
+    modal
+    header="Create a Route!"
+  >
+    <div
+      v-if="airlineStore.userAirline?.airplanes?.length > 0 && viewPlanePicker"
+    >
+      <DataTable
+        v-model:filters="filters"
+        :value="airlineStore.userAirline.airplanes"
+        v-model:selection="planeSelection"
+        selection-mode="single"
+        dataKey="planeID"
+        tableStyle="min-width: 60rem"
+      >
+        <template #header>
+          <div class="flex flex-wrap justify-end gap-2">
+            <div class="relative">
+              <i
+                class="pi pi-search absolute top-1/2 -mt-2 text-surface-400 leading-none end-3 z-1"
+              />
+              <InputText
+                v-model="filters['global'].value"
+                placeholder="Search"
+              />
+            </div>
+          </div>
+        </template>
 
-        <div>
-          <table>
-            <tbody>
-              <tr v-for="(plane, index) in airlineStore.userAirline.airplanes">
-                <td>
-                  {{ plane.builder }} {{ plane.variantName }} {{ index + 1 }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-  </div>
+        <Column header="Builder" sortable>
+          <template #body="planeProps">
+            {{ planeProps.data.builder }} {{ planeProps.data.family }}
+          </template>
+        </Column>
+        <Column field="size" header="Size" sortable></Column>
+        <Column field="size" header="Usage" sortable></Column>
+        <Column field="crew" header="Crew P/A">
+          <template #body="planeProps">
+            {{ planeProps.data.crew.pilots }} /
+            {{ planeProps.data.crew.attendants }}
+          </template>
+        </Column>
+        <Column
+          field="specs.maxPassengers"
+          header="Passengers"
+          sortable
+        ></Column>
+        <Column field="specs.cargoCapacity" header="Cargo" sortable>
+          <template #body="variantProps">
+            ${{ variantProps.data.specs.cargoCapacity }}T
+          </template>
+        </Column>
+      </DataTable>
+
+      <Button
+        :disabled="!planeSelection"
+        label="Create Route"
+        @click="
+          viewPlanePicker = false;
+          viewRouteStartPicker = true;
+        "
+      />
+    </div>
+    <div v-else-if="viewRouteStartPicker">
+      <!-- Show list of airports. Two lists, ones you have terminals and ones you dont.
+       Then on selection find valid ends. -->
+
+      <DataTable
+        v-model:filters="filters"
+        :value="airportList"
+        v-model:selection="routeStartSelection"
+        selection-mode="single"
+        dataKey="planeID"
+        tableStyle="min-width: 60rem"
+      >
+        <template #header>
+          <div class="flex flex-wrap justify-end gap-2">
+            <div class="relative">
+              <i
+                class="pi pi-search absolute top-1/2 -mt-2 text-surface-400 leading-none end-3 z-1"
+              />
+              <InputText
+                v-model="filters['global'].value"
+                placeholder="Search"
+              />
+            </div>
+          </div>
+        </template>
+
+        <Column field="name" header="Name" sortable> </Column>
+        <Column field="country" header="Country" sortable></Column>
+      </DataTable>
+
+      <Button
+        :disabled="!routeStartSelection"
+        label="End Route"
+        @click="
+          viewRouteStartPicker = false;
+          viewRouteEndPicker = true;
+        "
+      />
+    </div>
+    <div v-else-if="viewRouteEndPicker">
+      <!-- Show list of airports. Two lists, ones you have terminals and ones you dont.
+       Then on selection find valid ends. -->
+
+      <DataTable
+        v-model:filters="filters"
+        :value="
+          airportList.filter((item) => possibleEndCodes.includes(item.code))
+        "
+        v-model:selection="routeEndSelection"
+        selection-mode="single"
+        dataKey="planeID"
+        tableStyle="min-width: 60rem"
+      >
+        <template #header>
+          <div class="flex flex-wrap justify-end gap-2">
+            <div class="relative">
+              <i
+                class="pi pi-search absolute top-1/2 -mt-2 text-surface-400 leading-none end-3 z-1"
+              />
+              <InputText
+                v-model="filters['global'].value"
+                placeholder="Search"
+              />
+            </div>
+          </div>
+        </template>
+
+        <Column field="name" header="Name" sortable> </Column>
+        <Column field="country" header="Country" sortable></Column>
+      </DataTable>
+
+      <Button
+        :disabled="!routeEndSelection"
+        label="End Route"
+        @click="
+          createNewRoute();
+          windowManager.routePanelOpen = false;
+        "
+      />
+    </div>
+
+    <div v-else>
+      <h2>Please purchase an airplane to create a route.</h2>
+    </div>
+  </Dialog>
 </template>
 
 <style scoped>

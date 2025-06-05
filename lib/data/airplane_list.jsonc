@@ -1,19 +1,19 @@
 /**
-* Builders:
-*   - Airscape (Airbus)
-*   - Birming (Boeing)
-*   - Bradie (Bombardier)
-*   - BTA (BAE)
-*   - Coleman (Cessna)
-*   - Embassy (Embraer)
-*   - Merriman Downer (McDonnell Douglas)
-*   - Tumenoff (Tupolev)
-* Each plan is just the family,
-* Variants are the different versions in the family.
-* Variants can have multiple seat layouts
-* Plane specs need to be in meters, miles, gallons and mph
-* Only fill cargo capacity if cargo variant
-*/
+ * Builders:
+ *   - Airscape (Airbus)
+ *   - Birming (Boeing)
+ *   - Bradie (Bombardier)
+ *   - BTA (BAE)
+ *   - Coleman (Cessna)
+ *   - Embassy (Embraer)
+ *   - Merriman Downer (McDonnell Douglas)
+ *   - Tumenoff (Tupolev)
+ * Each plan is just the family,
+ * Variants are the different versions in the family.
+ * Variants can have multiple seat layouts
+ * Plane specs need to be in meters, miles, gallons and mph
+ * Only fill cargo capacity if cargo variant
+ */
 [
   {
     "builder": "Airscape",
@@ -39,7 +39,7 @@
         },
         "specs": {
           "fuelCapacity": 6200,
-          "maxRange": 4800,
+          "maxRange": 7700,
           "maxSpeed": 550,
           "cruiseSpeed": 515,
           "maxPassengers": 156,
@@ -80,7 +80,7 @@
         },
         "specs": {
           "fuelCapacity": 6500,
-          "maxRange": 5000,
+          "maxRange": 8000,
           "maxSpeed": 550,
           "cruiseSpeed": 515,
           "maxPassengers": 186,
@@ -130,7 +130,7 @@
         },
         "specs": {
           "fuelCapacity": 7400,
-          "maxRange": 5300,
+          "maxRange": 8500,
           "maxSpeed": 545,
           "cruiseSpeed": 515,
           "maxPassengers": 222,
@@ -171,7 +171,7 @@
         },
         "specs": {
           "fuelCapacity": 7400,
-          "maxRange": 5300,
+          "maxRange": 8500,
           "maxSpeed": 545,
           "cruiseSpeed": 515,
           "maxPassengers": 0,
@@ -206,7 +206,7 @@
         },
         "specs": {
           "fuelCapacity": 1700,
-          "maxRange": 1850,
+          "maxRange": 3000,
           "maxSpeed": 425,
           "cruiseSpeed": 410,
           "maxPassengers": 78,
@@ -230,7 +230,7 @@
           }
         ]
       },
-       {
+      {
         "variantName": "H300-AL",
         "variantID": 1,
         "dateSaleBegin": 0,
@@ -247,7 +247,7 @@
         },
         "specs": {
           "fuelCapacity": 1900,
-          "maxRange": 1900,
+          "maxRange": 3050,
           "maxSpeed": 425,
           "cruiseSpeed": 405,
           "maxPassengers": 86,
@@ -288,7 +288,7 @@
         },
         "specs": {
           "fuelCapacity": 1900,
-          "maxRange": 1840,
+          "maxRange": 2960,
           "maxSpeed": 425,
           "cruiseSpeed": 405,
           "maxPassengers": 98,
@@ -314,7 +314,7 @@
       }
     ]
   },
-    {
+  {
     "builder": "Coleman",
     "family": "601",
     "recalls": [],
@@ -338,7 +338,7 @@
         },
         "specs": {
           "fuelCapacity": 220,
-          "maxRange": 1400,
+          "maxRange": 2250,
           "maxSpeed": 260,
           "cruiseSpeed": 240,
           "maxPassengers": 9,
@@ -355,7 +355,7 @@
           }
         ]
       },
-             {
+      {
         "variantName": "601 XL",
         "variantID": 0,
         "dateSaleBegin": 0,
@@ -372,7 +372,7 @@
         },
         "specs": {
           "fuelCapacity": 280,
-          "maxRange": 1650,
+          "maxRange": 2650,
           "maxSpeed": 250,
           "cruiseSpeed": 235,
           "maxPassengers": 12,
@@ -390,5 +390,5 @@
         ]
       }
     ]
-  },
+  }
 ]

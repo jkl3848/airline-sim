@@ -6,9 +6,9 @@ import { windowManager } from "@stores/windowManager.js"
 <template>
   <div id="right-panel">
 
-    <button @click="airlineStore.startNewAirline('Test Line')">New Airline</button>
-        <button @click="windowManager.openPlanePanel()">Buy Plane</button>
-    <button @click="windowManager.openRoutePanel()">Create Route</button>
+    <Button @click="airlineStore.startNewAirline('Test Line')" label="New Airline" />
+    <Button @click="windowManager.openPlanePanel()" label="Buy a Plane"/>
+    <Button @click="windowManager.openRoutePanel()" label="Make a Route" />
 
   </div>
 </template>
