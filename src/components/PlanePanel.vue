@@ -143,7 +143,7 @@ function collapseAll() {
               ></Column>
               <Column field="specs.cargoCapacity" header="Cargo" sortable>
                 <template #body="variantProps">
-                  ${{ variantProps.data.specs.cargoCapacity }}T
+                  {{ variantProps.data.specs.cargoCapacity }}T
                 </template>
               </Column>
 

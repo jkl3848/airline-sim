@@ -25,10 +25,17 @@ export default function getValidEndAirport(
     const thisAirP = airportList[i];
 
     if (thisAirP.code !== startingAirportCode) {
-      const distanceBetweenAirports = getDistance(startingAirportCoords, {
-        latitude: thisAirP.latitude,
-        longitude: thisAirP.longitude,
-      });
+      const distanceBetweenAirports =
+        getDistance(
+          startingAirportCoords,
+          {
+            latitude: thisAirP.latitude,
+            longitude: thisAirP.longitude,
+          },
+          1000
+        ) / 1000;
+
+      console.log(distanceBetweenAirports);
 
       if (distanceBetweenAirports < maxRange) {
         listOfValidAirportsCodes.push(thisAirP.code);

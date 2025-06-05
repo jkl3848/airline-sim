@@ -12,12 +12,36 @@ const filters = $ref({
 });
 
 let viewPlanePicker = $ref(false);
-let viewRouteCreator = $ref(false);
+let viewRouteStartPicker = $ref(false);
+let viewRouteEndPicker = $ref(false);
 
 const planeSelection = $ref();
+const routeStartSelection = $ref();
+const routeEndSelection = $ref();
 
-function getRouteEndOptions() {
-  getValidEndAirport();
+const possibleEndCodes = $computed(() => {
+  return getValidEndAirport(
+    routeStartSelection.code,
+    {
+      latitude: routeStartSelection.latitude,
+      longitude: routeStartSelection.longitude,
+    },
+    { planeID: planeSelection.planeID, variantID: planeSelection.variantID }
+  );
+});
+
+function createNewRoute() {
+  airlineStore.userAirline.routes.push({
+    startAirport: routeStartSelection.code,
+    endAirport: routeEndSelection.code,
+    flights: [
+      {
+        airplane: planeSelection.id,
+        day: 0,
+        times: [600, 1320],
+      },
+    ],
+  });
 }
 
 onMounted(() => {
@@ -86,15 +110,91 @@ onMounted(() => {
         label="Create Route"
         @click="
           viewPlanePicker = false;
-          viewRouteCreator = true;
+          viewRouteStartPicker = true;
         "
       />
     </div>
-    <div v-else-if="viewRouteCreator">
+    <div v-else-if="viewRouteStartPicker">
       <!-- Show list of airports. Two lists, ones you have terminals and ones you dont.
        Then on selection find valid ends. -->
-      {{ airportList }}
+
+      <DataTable
+        v-model:filters="filters"
+        :value="airportList"
+        v-model:selection="routeStartSelection"
+        selection-mode="single"
+        dataKey="planeID"
+        tableStyle="min-width: 60rem"
+      >
+        <template #header>
+          <div class="flex flex-wrap justify-end gap-2">
+            <div class="relative">
+              <i
+                class="pi pi-search absolute top-1/2 -mt-2 text-surface-400 leading-none end-3 z-1"
+              />
+              <InputText
+                v-model="filters['global'].value"
+                placeholder="Search"
+              />
+            </div>
+          </div>
+        </template>
+
+        <Column field="name" header="Name" sortable> </Column>
+        <Column field="country" header="Country" sortable></Column>
+      </DataTable>
+
+      <Button
+        :disabled="!routeStartSelection"
+        label="End Route"
+        @click="
+          viewRouteStartPicker = false;
+          viewRouteEndPicker = true;
+        "
+      />
     </div>
+    <div v-else-if="viewRouteEndPicker">
+      <!-- Show list of airports. Two lists, ones you have terminals and ones you dont.
+       Then on selection find valid ends. -->
+
+      <DataTable
+        v-model:filters="filters"
+        :value="
+          airportList.filter((item) => possibleEndCodes.includes(item.code))
+        "
+        v-model:selection="routeEndSelection"
+        selection-mode="single"
+        dataKey="planeID"
+        tableStyle="min-width: 60rem"
+      >
+        <template #header>
+          <div class="flex flex-wrap justify-end gap-2">
+            <div class="relative">
+              <i
+                class="pi pi-search absolute top-1/2 -mt-2 text-surface-400 leading-none end-3 z-1"
+              />
+              <InputText
+                v-model="filters['global'].value"
+                placeholder="Search"
+              />
+            </div>
+          </div>
+        </template>
+
+        <Column field="name" header="Name" sortable> </Column>
+        <Column field="country" header="Country" sortable></Column>
+      </DataTable>
+
+      <Button
+        :disabled="!routeEndSelection"
+        label="End Route"
+        @click="
+          createNewRoute();
+          windowManager.routePanelOpen = false;
+        "
+      />
+    </div>
+
     <div v-else>
       <h2>Please purchase an airplane to create a route.</h2>
     </div>
