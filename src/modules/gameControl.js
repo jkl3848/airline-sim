@@ -3,6 +3,7 @@
  */
 import { clockStore } from "@stores/worldClock.js";
 import { eventQueue } from "@stores/eventQueue.js";
+import generateDailyRoutes from "./routeManager";
 
 export default function startGame() {
   clockStore.gameClock = clockStore.mainGameClock({
@@ -18,6 +19,7 @@ export default function startGame() {
 
   clockStore.gameClock.onDayEnd((day) => {
     console.log(`End of game day ${day} at ${clockStore.currentTime}`);
+    generateDailyRoutes(day % 7);
     // trigger salary payments, maintenance checks, etc.
   });
 

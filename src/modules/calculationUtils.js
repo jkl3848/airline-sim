@@ -1,5 +1,8 @@
 import { getDistance } from "geolib";
-import { getAirplaneVariantByID } from "@modules/dataProcessing.js";
+import {
+  getAirplaneVariantByID,
+  getAirportByCode,
+} from "@modules/dataProcessing.js";
 import airportList from "@data/airport_list.jsonc";
 
 /**
@@ -25,15 +28,10 @@ export default function getValidEndAirport(
     const thisAirP = airportList[i];
 
     if (thisAirP.code !== startingAirportCode) {
-      const distanceBetweenAirports =
-        getDistance(
-          startingAirportCoords,
-          {
-            latitude: thisAirP.latitude,
-            longitude: thisAirP.longitude,
-          },
-          1000
-        ) / 1000;
+      const distanceBetweenAirports = getAirportDistance(
+        startingAirportCode,
+        thisAirP.code
+      );
 
       if (distanceBetweenAirports < maxRange) {
         listOfValidAirportsCodes.push(thisAirP.code);
@@ -42,4 +40,27 @@ export default function getValidEndAirport(
   }
 
   return listOfValidAirportsCodes;
+}
+
+export function calcFlightArrivalTime(routeData, planeSpeed) {
+  const routeDist = getAirportDistance(routeData.start, routeData.end);
+
+  const flightTimeInHours = routeDist / planeSpeed;
+
+  return flightTimeInHours * 3600000;
+}
+
+/**
+ *
+ * @param {string} startAirportCode Airport code
+ * @param {string} endAirportCode Airport code
+ * @returns {number} Distance in KM
+ */
+export function getAirportDistance(startAirportCode, endAirportCode) {
+  const startAirport = getAirportByCode(startAirportCode);
+  const endAirport = getAirportByCode(endAirportCode);
+
+  return (
+    getDistance(startAirport.coordinates, endAirport.coordinates, 1000) / 1000
+  );
 }

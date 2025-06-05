@@ -5,7 +5,7 @@ import airportList from "@data/airport_list.jsonc";
 
 import { FilterMatchMode } from "@primevue/core/api";
 import { onMounted } from "vue";
-import getValidEndAirport from "@/modules/routeCalculation";
+import getValidEndAirport from "@/modules/calculationUtils";
 
 const filters = $ref({
   global: { value: null, matchMode: FilterMatchMode.CONTAINS },
