@@ -8,7 +8,6 @@ import { FilterMatchMode } from "@primevue/core/api";
 
 let purchaseList = $ref([]);
 let purchaseTotal = $ref(0);
-let selectedProducts = $ref();
 
 let expandedRows = $ref({});
 let subExpansion = $ref({});
@@ -31,9 +30,6 @@ function purchaseAirplanes() {
 }
 
 function togglePlaneInOrder(planeVal, varVal, state) {
-  console.log(planeVal);
-  console.log(varVal);
-  console.log(state);
   if (state) {
     const { variants, ...restOfPlane } = planeVal;
     const newPlane = {
@@ -157,6 +153,10 @@ function collapseAll() {
                         variantProps.data,
                         true
                       )
+                    "
+                    :disabled="
+                      variantProps.data.cost >
+                      airlineStore.userAirline.money - purchaseTotal
                     "
                   />
                   <Button
