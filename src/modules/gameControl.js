@@ -6,10 +6,7 @@ import { eventQueue } from "@stores/eventQueue.js";
 import generateDailyRoutes from "./routeManager";
 
 export default function startGame() {
-  clockStore.gameClock = clockStore.mainGameClock({
-    tickInterval: 100,
-    timeMultiplier: 600,
-  });
+  clockStore.gameClock = clockStore.mainGameClock(100, 600);
 
   clockStore.gameClock.onTick((currentTime) => {
     eventQueue.process(currentTime);
@@ -20,6 +17,8 @@ export default function startGame() {
   clockStore.gameClock.onDayEnd((day) => {
     console.log(`End of game day ${day} at ${clockStore.currentTime}`);
     generateDailyRoutes(day % 7);
+
+    console.log(eventQueue);
     // trigger salary payments, maintenance checks, etc.
   });
 

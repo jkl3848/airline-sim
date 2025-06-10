@@ -1,7 +1,7 @@
 import { reactive } from "vue";
 
 export const clockStore = reactive({
-  GAME_EPOCH: new Date("2000-01-01T00:00:00Z"),
+  GAME_EPOCH: new Date("2000-01-01T00:00:00"),
   currentTime: 0,
   gameClock: null,
 
@@ -23,7 +23,7 @@ export const clockStore = reactive({
    *   getTime: () => number
    * }}
    */
-  mainGameClock({ tickInterval = 1000, timeMultiplier = 60 } = {}) {
+  mainGameClock(tickInterval, timeMultiplier) {
     let running = false;
     let interval = null;
 
