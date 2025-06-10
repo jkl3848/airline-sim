@@ -64,3 +64,8 @@ export function getAirportDistance(startAirportCode, endAirportCode) {
     getDistance(startAirport.coordinates, endAirport.coordinates, 1000) / 1000
   );
 }
+
+export function randomNumberGenerator(max, allowNegative = false) {
+  const value = Math.floor(Math.random() * (max + 1));
+  return allowNegative ? (Math.random() < 0.5 ? value : -value) : value;
+}

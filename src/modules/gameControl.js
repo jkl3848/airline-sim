@@ -3,6 +3,7 @@
  */
 import { clockStore } from "@stores/worldClock.js";
 import { eventQueue } from "@stores/eventQueue.js";
+import { economyStore } from "@stores/economyStore.js";
 import generateDailyRoutes from "./routeManager";
 
 export default function startGame() {
@@ -20,6 +21,10 @@ export default function startGame() {
 
     console.log(eventQueue);
     // trigger salary payments, maintenance checks, etc.
+  });
+  clockStore.gameClock.onMonthEnd((month) => {
+    economyStore.getNewInflationRate();
+    economyStore.adjustByInflation();
   });
 
   clockStore.gameClock.start();

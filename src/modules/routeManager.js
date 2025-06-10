@@ -1,4 +1,5 @@
-import airlineStore from "@stores/airlineStore";
+import { airlineStore } from "@stores/airlineStore.js";
+import { economyStory } from "@stores/economyStore.js";
 import { eventQueue } from "@stores/eventQueue.js";
 
 export default function generateDailyRoutes(today) {
@@ -18,4 +19,11 @@ export default function generateDailyRoutes(today) {
 
 export function completeFlight() {
   // generates money for user
+}
+
+function calculateRouteProfit() {
+  // TODO: this is just the formula, has no value currently
+  const passengers = planeCapacity * routeDemand * marketVolatility;
+  const profit = passengers * ticketPrice;
+  return profit;
 }
