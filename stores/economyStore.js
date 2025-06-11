@@ -1,7 +1,7 @@
 import { reactive } from "vue";
 import { randomNumberGenerator } from "@modules/calculationUtils";
 
-export const economyStory = reactive({
+export const economyStore = reactive({
   fuelCost: 4, // Price per gallon
   minimumWage: 400, // Salary per week minimum.
   currentInflationRate: 0, // A percent that other costs will be adjusted based on. Changes monthly.
@@ -23,4 +23,4 @@ export const economyStory = reactive({
   },
 });
 
-export default economyStory;
+export default economyStore;

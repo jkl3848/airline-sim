@@ -1,5 +1,5 @@
 import { airlineStore } from "@stores/airlineStore.js";
-import { economyStory } from "@stores/economyStore.js";
+import { economyStore } from "@stores/economyStore.js";
 import { eventQueue } from "@stores/eventQueue.js";
 
 export default function generateDailyRoutes(today) {
@@ -12,18 +12,20 @@ export default function generateDailyRoutes(today) {
   // console.log(allFlights);
   if (allFlights.length > 0) {
     allFlights.forEach((thisFlight) => {
-      eventQueue.schedule(thisFlight.arrive, () => completeFlight());
+      eventQueue.schedule(thisFlight.arrive, () => completeFlight(thisFlight));
     });
   }
 }
 
-export function completeFlight() {
-  // generates money for user
+export function completeFlight(flightInfo) {
+  airlineStore.userAirline.money += calculateRouteProfit(flightInfo);
+  airlineStore.accruedWeeklyCosts += economyStore.fuelCost * routeDistance;
 }
 
-function calculateRouteProfit() {
+function calculateRouteProfit(flightInfo) {
   // TODO: this is just the formula, has no value currently
-  const passengers = planeCapacity * routeDemand * marketVolatility;
+  const passengers =
+    planeCapacity * routeDemand * economyStore.marketVolatility;
   const profit = passengers * ticketPrice;
   return profit;
 }
