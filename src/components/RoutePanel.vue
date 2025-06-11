@@ -5,7 +5,12 @@ import airportList from "@data/airport_list.jsonc";
 
 import { FilterMatchMode } from "@primevue/core/api";
 import { onMounted } from "vue";
-import getValidEndAirport from "@/modules/calculationUtils";
+import {
+  getValidEndAirport,
+  getAirportDistance,
+  getRouteDemand,
+} from "@modules/calculationUtils";
+import { v4 as uuidv4 } from "uuid";
 
 const filters = $ref({
   global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -31,16 +36,37 @@ const possibleEndCodes = $computed(() => {
 });
 
 function createNewRoute() {
+  const routeID = generateNewRouteEntry(
+    routeStartSelection.code,
+    routeEndSelection.code
+  );
   airlineStore.userAirline.routes.push({
-    startAirport: routeStartSelection.code,
-    endAirport: routeEndSelection.code,
+    routeID,
     flights: [
       {
         airplane: planeSelection.id,
         day: 0,
-        times: [600, 1320],
+        time: 600,
+        flightTime: 0,
       },
     ],
+  });
+}
+
+function generateNewRouteEntry(start, end) {
+  const existingRoute = airlineStore.routeList.find(
+    (rt) => rt.startAirport === start && rt.endAirport === end
+  );
+
+  if (existingRoute) return existingRoute.routeID;
+
+  const routeDist = getAirportDistance(start, end);
+  airlineStore.routeList.push({
+    startingAirport: start,
+    endingAirport: end,
+    routeID: uuidv4(),
+    distance: routeDist,
+    baseDemand: getRouteDemand(start, end, routeDist),
   });
 }
 

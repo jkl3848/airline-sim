@@ -69,3 +69,23 @@ export function randomNumberGenerator(max, allowNegative = false) {
   const value = Math.floor(Math.random() * (max + 1));
   return allowNegative ? (Math.random() < 0.5 ? value : -value) : value;
 }
+
+export function getRouteDemand(
+  startAirportCode,
+  endAirportCode,
+  routeDistance
+) {
+  const peakDemand = 800;
+  const demandSpread = 600;
+
+  const startAirport = getAirportByCode(startAirportCode);
+  const endAirport = getAirportByCode(endAirportCode);
+
+  const passengerFactor = Math.sqrt(
+    startAirport.passengers * endAirport.passengers
+  ); // geometric mean favors balanced airports
+  const distanceFactor = Math.exp(
+    -Math.pow((routeDistance - peakDemand) / demandSpread, 2)
+  ); // Gaussian bell curve
+  return passengerFactor * distanceFactor;
+}
