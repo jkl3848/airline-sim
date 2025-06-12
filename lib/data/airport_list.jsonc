@@ -1,16 +1,17 @@
 /**
-* Airport size is small, medium, large. Refers to what size airplane can land.
-* Small is for little prop planes, medium is like 727/37, large is for long-haul intl.
-* Passengers is daily passengers. Influnces route demand.
-*/
+ * Airport size is small, medium, large. Refers to what size airplane can land.
+ * Small is for little prop planes, medium is like 727/37, large is for long-haul intl.
+ * Passengers is daily passengers. Influnces route demand.
+ */
 [
-  
   {
     "code": "CDG",
     "icao": "LFPG",
     "name": "Charles de Gaulle Airport",
-    "latitude": 49.0068908,
-    "longitude": 2.5710819691019156,
+    "coordinates": {
+      "latitude": 49.0068908,
+      "longitude": 2.5710819691019156
+    },
     "time_zone": "Europe/Paris",
     "city_code": "PAR",
     "country": "FR",
@@ -22,8 +23,10 @@
     "code": "GUA",
     "icao": "MGGT",
     "name": "La Aurora International Airport",
-    "latitude": 14.58331705,
-    "longitude": -90.52716040808703,
+    "coordinates": {
+      "latitude": 14.58331705,
+      "longitude": -90.52716040808703
+    },
     "time_zone": "America/Guatemala",
     "city_code": "GUA",
     "country": "GT",
@@ -37,8 +40,10 @@
     "code": "HKG",
     "icao": "VHHX",
     "name": "Hong Kong International Airport",
-    "latitude": 22.3125986,
-    "longitude": 113.91732378641939,
+    "coordinates": {
+      "latitude": 22.3125986,
+      "longitude": 113.91732378641939
+    },
     "time_zone": "Asia/Hong_Kong",
     "city_code": "HKG",
     "country": "HK",
@@ -52,8 +57,10 @@
     "code": "HKT",
     "icao": "VTSP",
     "name": "Phuket International Airport",
-    "latitude": 8.11013195,
-    "longitude": 98.30581527719204,
+    "coordinates": {
+      "latitude": 8.11013195,
+      "longitude": 98.30581527719204
+    },
     "time_zone": "Asia/Bangkok",
     "city_code": "HKT",
     "country": "TH",
@@ -66,8 +73,10 @@
     "code": "HNL",
     "icao": "PHNL",
     "name": "Honolulu International Airport",
-    "latitude": 21.32040435,
-    "longitude": -157.9173135198164,
+    "coordinates": {
+      "latitude": 21.32040435,
+      "longitude": -157.9173135198164
+    },
     "time_zone": "Pacific/Honolulu",
     "city_code": "HNL",
     "country": "US",
@@ -81,8 +90,10 @@
     "code": "IAD",
     "icao": "KIAD",
     "name": "Washington Dulles International Airport",
-    "latitude": 38.95226625,
-    "longitude": -77.4534849116007,
+    "coordinates": {
+      "latitude": 38.95226625,
+      "longitude": -77.4534849116007
+    },
     "time_zone": "America/New_York",
     "city_code": "WAS",
     "country": "US",
@@ -96,8 +107,10 @@
     "code": "IND",
     "icao": "KIND",
     "name": "Indianapolis International Airport",
-    "latitude": 39.7162533,
-    "longitude": -86.29508388539975,
+    "coordinates": {
+      "latitude": 39.7162533,
+      "longitude": -86.29508388539975
+    },
     "time_zone": "America/Indiana/Indianapolis",
     "city_code": "IND",
     "country": "US",
@@ -111,8 +124,10 @@
     "code": "JFK",
     "icao": "KJFK",
     "name": "John F. Kennedy International Airport",
-    "latitude": 40.642947899999996,
-    "longitude": -73.7793733748521,
+    "coordinates": {
+      "latitude": 40.642947899999996,
+      "longitude": -73.7793733748521
+    },
     "time_zone": "America/New_York",
     "city_code": "NYC",
     "country": "US",
@@ -126,8 +141,10 @@
     "code": "MCO",
     "icao": "KMCO",
     "name": "Orlando International Airport",
-    "latitude": 28.412903550000003,
-    "longitude": -81.30944309752753,
+    "coordinates": {
+      "latitude": 28.412903550000003,
+      "longitude": -81.30944309752753
+    },
     "time_zone": "America/New_York",
     "city_code": "ORL",
     "country": "US",
@@ -141,8 +158,10 @@
     "code": "OAK",
     "icao": "KOAK",
     "name": "San Francisco Bay Oakland International Airport",
-    "latitude": 37.7221623,
-    "longitude": -122.21707443336842,
+    "coordinates": {
+      "latitude": 37.7221623,
+      "longitude": -122.21707443336842
+    },
     "time_zone": "America/Los_Angeles",
     "city_code": "OAK",
     "country": "US",
@@ -156,8 +175,10 @@
     "code": "ORD",
     "icao": "KORD",
     "name": "O'Hare International Airport",
-    "latitude": 41.97795725,
-    "longitude": -87.90917584851792,
+    "coordinates": {
+      "latitude": 41.97795725,
+      "longitude": -87.90917584851792
+    },
     "time_zone": "America/Chicago",
     "city_code": "CHI",
     "country": "US",
@@ -171,8 +192,10 @@
     "code": "ORF",
     "icao": "KORF",
     "name": "Norfolk International Airport",
-    "latitude": 36.8946697,
-    "longitude": -76.20229629965002,
+    "coordinates": {
+      "latitude": 36.8946697,
+      "longitude": -76.20229629965002
+    },
     "time_zone": "America/New_York",
     "city_code": "ORF",
     "country": "US",
@@ -186,8 +209,10 @@
     "code": "ORL",
     "icao": "KORL",
     "name": "Orlando Executive",
-    "latitude": 28.54617435,
-    "longitude": -81.33163591314123,
+    "coordinates": {
+      "latitude": 28.54617435,
+      "longitude": -81.33163591314123
+    },
     "time_zone": "America/New_York",
     "city_code": "ORL",
     "country": "US",
@@ -201,8 +226,10 @@
     "code": "YUL",
     "icao": "CYUL",
     "name": "Montreal-Pierre Elliott Trudeau International Airport",
-    "latitude": 45.46873715,
-    "longitude": -73.74257166095532,
+    "coordinates": {
+      "latitude": 45.46873715,
+      "longitude": -73.74257166095532
+    },
     "time_zone": "America/Montreal",
     "city_code": "YMQ",
     "country": "CA",
@@ -211,5 +238,5 @@
     "isInternational": true,
     "size": "large",
     "passengers": 0
-  },
+  }
 ]

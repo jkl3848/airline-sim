@@ -11,7 +11,7 @@
  * Each plan is just the family,
  * Variants are the different versions in the family.
  * Variants can have multiple seat layouts
- * Plane specs need to be in meters, miles, gallons and mph
+ * Plane specs need to be in km, gallons and kmh
  * Only fill cargo capacity if cargo variant
  */
 [
@@ -40,8 +40,7 @@
         "specs": {
           "fuelCapacity": 6200,
           "maxRange": 7700,
-          "maxSpeed": 550,
-          "cruiseSpeed": 515,
+          "cruiseSpeed": 830,
           "maxPassengers": 156,
           "cargoCapacity": 0
         },
@@ -81,8 +80,7 @@
         "specs": {
           "fuelCapacity": 6500,
           "maxRange": 8000,
-          "maxSpeed": 550,
-          "cruiseSpeed": 515,
+          "cruiseSpeed": 830,
           "maxPassengers": 186,
           "cargoCapacity": 0
         },
@@ -131,8 +129,7 @@
         "specs": {
           "fuelCapacity": 7400,
           "maxRange": 8500,
-          "maxSpeed": 545,
-          "cruiseSpeed": 515,
+          "cruiseSpeed": 830,
           "maxPassengers": 222,
           "cargoCapacity": 0
         },
@@ -172,8 +169,7 @@
         "specs": {
           "fuelCapacity": 7400,
           "maxRange": 8500,
-          "maxSpeed": 545,
-          "cruiseSpeed": 515,
+          "cruiseSpeed": 830,
           "maxPassengers": 0,
           "cargoCapacity": 25
         },
@@ -207,8 +203,7 @@
         "specs": {
           "fuelCapacity": 1700,
           "maxRange": 3000,
-          "maxSpeed": 425,
-          "cruiseSpeed": 410,
+          "cruiseSpeed": 660,
           "maxPassengers": 78,
           "cargoCapacity": 0
         },
@@ -248,8 +243,7 @@
         "specs": {
           "fuelCapacity": 1900,
           "maxRange": 3050,
-          "maxSpeed": 425,
-          "cruiseSpeed": 405,
+          "cruiseSpeed": 650,
           "maxPassengers": 86,
           "cargoCapacity": 0
         },
@@ -289,8 +283,7 @@
         "specs": {
           "fuelCapacity": 1900,
           "maxRange": 2960,
-          "maxSpeed": 425,
-          "cruiseSpeed": 405,
+          "cruiseSpeed": 650,
           "maxPassengers": 98,
           "cargoCapacity": 0
         },
@@ -339,8 +332,7 @@
         "specs": {
           "fuelCapacity": 220,
           "maxRange": 2250,
-          "maxSpeed": 260,
-          "cruiseSpeed": 240,
+          "cruiseSpeed": 385,
           "maxPassengers": 9,
           "cargoCapacity": 0
         },
@@ -373,8 +365,7 @@
         "specs": {
           "fuelCapacity": 280,
           "maxRange": 2650,
-          "maxSpeed": 250,
-          "cruiseSpeed": 235,
+          "cruiseSpeed": 380,
           "maxPassengers": 12,
           "cargoCapacity": 0
         },

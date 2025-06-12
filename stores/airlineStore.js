@@ -12,6 +12,8 @@ export const airlineStore = reactive({
     employees: [],
   },
   otherAirlines: [],
+  accruedWeeklyCosts: 0,
+  routeList: [],
 
   startNewAirline(airlineName, startingCountry) {
     this.userAirline = {
