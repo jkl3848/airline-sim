@@ -11,7 +11,7 @@ import airportList from "@data/airport_list.jsonc";
  * @param {object} airplaneType The airplane and variant ids
  * @returns {string[]} A list of all valid airports in range for the route
  */
-export default function getValidEndAirport(
+export function getValidEndAirport(
   startingAirportCode,
   startingAirportCoords,
   airplaneType
