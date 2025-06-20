@@ -1,10 +1,10 @@
 <script setup>
+import { onMounted, watch } from "vue";
 import { airlineStore } from "@stores/airlineStore.js";
 import { windowManager } from "@stores/windowManager.js";
 import airportList from "@data/airport_list.jsonc";
 
 import { FilterMatchMode } from "@primevue/core/api";
-import { onMounted } from "vue";
 import {
   getValidEndAirport,
   getAirportDistance,
@@ -20,9 +20,9 @@ let viewPlanePicker = $ref(false);
 let viewRouteStartPicker = $ref(false);
 let viewRouteEndPicker = $ref(false);
 
-const planeSelection = $ref();
-const routeStartSelection = $ref();
-const routeEndSelection = $ref();
+let planeSelection = $ref();
+let routeStartSelection = $ref();
+let routeEndSelection = $ref();
 
 const possibleEndCodes = $computed(() => {
   return getValidEndAirport(
@@ -70,9 +70,42 @@ function generateNewRouteEntry(start, end) {
   });
 }
 
+function goBackAStep(){
+  if(viewRouteStartPicker){
+    viewRouteStartPicker = false;
+    viewPlanePicker = true;
+
+    planeSelection = null;
+    routeStartSelection = null;
+  }
+
+  if(viewRouteEndPicker){
+    viewRouteEndPicker = false;
+    viewRouteStartPicker = true;
+
+    routeStartSelection = null;
+    routeEndSelection = null;
+  }
+}
+
 onMounted(() => {
   viewPlanePicker = true;
 });
+
+
+watch(
+  () => windowManager.routePanelOpen,
+  (newVal) => {
+    if(newVal) {
+      viewPlanePicker = true;
+      viewRouteStartPicker = false;
+      viewRouteEndPicker = false;
+      planeSelection = null;
+      routeStartSelection = null;
+      routeEndSelection = null;
+    }
+  }
+);
 </script>
 
 <template>
@@ -153,7 +186,10 @@ onMounted(() => {
         tableStyle="min-width: 60rem"
       >
         <template #header>
-          <div class="flex flex-wrap justify-end gap-2">
+          <div class="flex flex-wrap justify-between gap-2">
+            <div>
+              <Button class="border-none" type="button" icon="pi pi-arrow-left" @click="goBackAStep" />
+            </div>
             <div class="relative">
               <i
                 class="pi pi-search absolute top-1/2 -mt-2 text-surface-400 leading-none end-3 z-1"
@@ -194,7 +230,10 @@ onMounted(() => {
         tableStyle="min-width: 60rem"
       >
         <template #header>
-          <div class="flex flex-wrap justify-end gap-2">
+          <div class="flex flex-wrap justify-between gap-2">
+            <div>
+              <Button class="border-none" type="button" icon="pi pi-arrow-left" @click="goBackAStep" />
+            </div>
             <div class="relative">
               <i
                 class="pi pi-search absolute top-1/2 -mt-2 text-surface-400 leading-none end-3 z-1"
