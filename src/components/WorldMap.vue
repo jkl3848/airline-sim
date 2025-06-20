@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch } from "vue";
+import { onMounted, watch } from "vue";
 import {
   globeStyle,
   defaultStyle,
@@ -9,10 +9,11 @@ import windowManager from "../../stores/windowManager";
 import airlineStore from "../../stores/airlineStore";
 import { getAirportByCode } from "@/modules/dataProcessing";
 import * as turf from "@turf/turf";
+import greatCircle from "@turf/great-circle";
 
 import maplibregl from "maplibre-gl";
 
-let map = ref();
+let map = $ref();
 
 const emptyGeoJSON = {
   type: "FeatureCollection",
@@ -26,17 +27,16 @@ function renderRoutes() {
 
   if (windowManager.showRoutesOnMap) {
     const routeFeatures = airlineStore.routeList.map((route, index) => {
-      const coords = [
-        Object.values(getAirportByCode(route.startingAirport).coordinates),
-        Object.values(getAirportByCode(route.endingAirport).coordinates),
-      ];
+      const from =  Object.values(getAirportByCode(route.startingAirport).coordinates).reverse();
+      const to =  Object.values(getAirportByCode(route.endingAirport).coordinates).reverse();
 
-      return turf.lineString(coords, { name: `route ${index}` });
+      return greatCircle(from, to, {
+        properties: { name: `route ${index}` },
+        npoints: 100,
+      });
     });
 
     const geojson = turf.featureCollection(routeFeatures);
-
-    console.log(geojson);
 
     if (map.getSource("user_routes")) {
       map.getSource("user_routes").setData(geojson);
@@ -45,7 +45,7 @@ function renderRoutes() {
 }
 
 function generateMap() {
-  if (typeof map.remove === "function") {
+  if (typeof map?.remove === "function") {
     map.remove();
   }
 

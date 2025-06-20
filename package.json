@@ -11,6 +11,7 @@
   "dependencies": {
     "@primeuix/themes": "^1.1.1",
     "@tailwindcss/vite": "^4.1.8",
+    "@turf/great-circle": "^7.2.0",
     "@turf/turf": "^7.2.0",
     "@vue-macros/reactivity-transform": "^3.0.0-beta.12",
     "geolib": "^3.3.4",

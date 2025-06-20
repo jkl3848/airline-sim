@@ -3193,6 +3193,7 @@ __metadata:
   dependencies:
     "@primeuix/themes": "npm:^1.1.1"
     "@tailwindcss/vite": "npm:^4.1.8"
+    "@turf/great-circle": "npm:^7.2.0"
     "@turf/turf": "npm:^7.2.0"
     "@vitejs/plugin-vue": "npm:^5.2.1"
     "@vue-macros/reactivity-transform": "npm:^3.0.0-beta.12"
