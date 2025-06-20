@@ -29,6 +29,7 @@ const currentMoneyConverted = $computed(() => {
     </div>
 <div>
     <table>
+      <tbody>
         <tr>
             <td>
                 <h2>{{ airlineStore.userAirline.name }}</h2>
@@ -46,6 +47,7 @@ const currentMoneyConverted = $computed(() => {
         <tr>
             Employees: {{ airlineStore.userAirline.employees?.length }}
         </tr>
+      </tbody>
     </table>
 </div>
   </div>

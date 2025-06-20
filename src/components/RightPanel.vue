@@ -1,15 +1,20 @@
 <script setup>
-import { airlineStore } from "@stores/airlineStore.js"
-import { windowManager } from "@stores/windowManager.js"
+import ToggleSwitch from "@/volt/ToggleSwitch.vue";
+import { airlineStore } from "@stores/airlineStore.js";
+import { windowManager } from "@stores/windowManager.js";
 </script>
 
 <template>
   <div id="right-panel">
-
-    <Button @click="airlineStore.startNewAirline('Test Line')" label="New Airline" />
-    <Button @click="windowManager.openPlanePanel()" label="Buy a Plane"/>
+    <Button
+      @click="airlineStore.startNewAirline('Test Line')"
+      label="New Airline"
+    />
+    <Button @click="windowManager.openPlanePanel()" label="Buy a Plane" />
     <Button @click="windowManager.openRoutePanel()" label="Make a Route" />
 
+    <ToggleSwitch v-model="windowManager.showRoutesOnMap" /> Show Routes
+    {{ windowManager.showRoutesOnMap }}
   </div>
 </template>
 
