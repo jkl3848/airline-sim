@@ -3199,6 +3199,7 @@ __metadata:
     "@vue-macros/reactivity-transform": "npm:^3.0.0-beta.12"
     geolib: "npm:^3.3.4"
     maplibre-gl: "npm:^5.2.0"
+    primeicons: "npm:^7.0.0"
     primevue: "npm:^4.3.4"
     tailwind-merge: "npm:^3.3.0"
     tailwindcss: "npm:^4.1.8"
@@ -4739,6 +4740,13 @@ __metadata:
   dependencies:
     parse-ms: "npm:^4.0.0"
   checksum: 10/a65a1d81560867f4f7128862fdbf0e1c2d3c5607bf75cae7758bf8111e2c4b744be46e084704125a38ba918bb43defa7a53aaff0f48c5c2d95367d3148c980d9
+  languageName: node
+  linkType: hard
+
+"primeicons@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "primeicons@npm:7.0.0"
+  checksum: 10/ff1d698a4d5932105393cd3288c6b1fd92ad30b6fbce1b49de86bcc1917d74d6769c12061d43aa8657fe52ac79d9336527f0708d8c5a0347a1ddcd3e47d0eb73
   languageName: node
   linkType: hard
 
