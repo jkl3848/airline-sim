@@ -29,3 +29,12 @@ function calculateRouteProfit(flightInfo) {
   const profit = passengers * ticketPrice;
   return profit;
 }
+
+export function getRouteByID(routeIDs){
+  const matchedRoutes = []
+  for (let i = 0; i < routeIDs.length; i++){
+    matchedRoutes.push(airlineStore.routeList.find(item => item.routeID === routeIDs[i]))
+  }
+
+  return matchedRoutes
+}

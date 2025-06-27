@@ -3,6 +3,7 @@ import { reactive } from "vue";
 export const windowManager = reactive({
   airplanePanelOpen: false,
   routePanelOpen: false,
+  routeSchedulerPanelOpen: false,
   showRoutesOnMap: true,
 
   openPlanePanel() {
@@ -13,9 +14,14 @@ export const windowManager = reactive({
     this.closeAllPanels();
     this.routePanelOpen = true;
   },
+  openSchedulerPanel() {
+    this.closeAllPanels();
+    this.routeSchedulerPanelOpen = true;
+  },
   closeAllPanels() {
     this.airplanePanelOpen = false;
     this.routePanelOpen = false;
+    this.routeSchedulerPanelOpen = false;
   },
 });
 

@@ -60,14 +60,18 @@ function generateNewRouteEntry(start, end) {
 
   if (existingRoute) return existingRoute.routeID;
 
+  const newRouteID = uuidv4()
+
   const routeDist = getAirportDistance(start, end);
   airlineStore.routeList.push({
     startingAirport: start,
     endingAirport: end,
-    routeID: uuidv4(),
+    routeID: newRouteID,
     distance: routeDist,
     baseDemand: getRouteDemand(start, end, routeDist),
   });
+
+  return newRouteID
 }
 
 function goBackAStep(){

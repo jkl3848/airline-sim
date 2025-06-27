@@ -19,7 +19,7 @@ export const airlineStore = reactive({
     this.userAirline = {
       name: airlineName,
       money: 100000000,
-      originCountryCode: "USA",
+      originCountryCode: startingCountry || "USA",
       originCountry: "United States",
       routes: [],
       airports: [],

@@ -12,6 +12,7 @@ import { windowManager } from "@stores/windowManager.js";
     />
     <Button @click="windowManager.openPlanePanel()" label="Buy a Plane" />
     <Button @click="windowManager.openRoutePanel()" label="Make a Route" />
+    <Button @click="windowManager.openSchedulerPanel()" label="Schedule a Flight" />
 
     <ToggleSwitch v-model="windowManager.showRoutesOnMap" /> Show Routes
     {{ windowManager.showRoutesOnMap }}
