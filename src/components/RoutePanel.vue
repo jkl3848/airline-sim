@@ -31,6 +31,14 @@ function createRoute() {
   endSelection = null;
 }
 
+// Add row class helpers
+function startRowClass(data){
+  return startSelection && data.code === startSelection.code ? 'selected-row' : '';
+}
+function endRowClass(data){
+  return endSelection && data.code === endSelection.code ? 'selected-row' : '';
+}
+
 onMounted(() => {});
 </script>
 
@@ -48,6 +56,7 @@ onMounted(() => {});
           scrollable
           scroll-height="200px"
           tableStyle="min-width: 40rem"
+          :rowClass="startRowClass"
         >
           <Column field="code" header="Code" sortable />
           <Column field="name" header="Name" />
@@ -65,6 +74,7 @@ onMounted(() => {});
             scrollable
             scroll-height="200px"
             tableStyle="min-width: 40rem"
+            :rowClass="endRowClass"
         >
           <Column field="code" header="Code" sortable />
           <Column field="name" header="Name" />
@@ -85,4 +95,9 @@ onMounted(() => {});
   </Dialog>
 </template>
 
-<style scoped></style>
+<style scoped>
+.selected-row :deep(td){
+  background-color:#dbeafe !important; /* light blue */
+  transition: background-color .15s ease;
+}
+</style>
