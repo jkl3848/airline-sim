@@ -45,6 +45,9 @@ const currentMoneyConverted = $computed(() => {
             Routes: {{ airlineStore.userAirline.routes?.length }}
         </tr>
         <tr>
+            Flights: {{ airlineStore.userAirline.flights?.length }}
+        </tr>
+        <tr>
             Employees: {{ airlineStore.userAirline.employees?.length }}
         </tr>
       </tbody>

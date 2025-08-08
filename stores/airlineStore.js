@@ -6,14 +6,15 @@ export const airlineStore = reactive({
     money: 0,
     originCountryCode: "",
     originCountry: "",
-    routes: [],
+    // Standalone collections
+    routes: [], // [{ id, start, end, distance, baseDemand }]
+    flights: [], // [{ id, routeId, airplaneId, daysOfWeek:[0..6], departureMinutes, flightTimeMinutes, turnaroundMinutes }]
     airports: [],
     airplanes: [],
     employees: [],
   },
   otherAirlines: [],
   accruedWeeklyCosts: 0,
-  routeList: [],
 
   startNewAirline(airlineName, startingCountry) {
     this.userAirline = {
@@ -22,10 +23,19 @@ export const airlineStore = reactive({
       originCountryCode: startingCountry || "USA",
       originCountry: "United States",
       routes: [],
+      flights: [],
       airports: [],
       airplanes: [],
       employees: [],
     };
+  },
+
+  // Helper accessors (can be expanded later)
+  getRouteById(id) {
+    return this.userAirline.routes.find((r) => r.id === id);
+  },
+  getFlightsForDay(day) {
+    return this.userAirline.flights.filter((f) => f.daysOfWeek.includes(day));
   },
 
   loadOtherAirlines() {},

@@ -1,291 +1,88 @@
 <script setup>
-import { onMounted, watch } from "vue";
+import { onMounted } from "vue";
 import { airlineStore } from "@stores/airlineStore.js";
 import { windowManager } from "@stores/windowManager.js";
 import airportList from "@data/airport_list.jsonc";
-
 import { FilterMatchMode } from "@primevue/core/api";
-import {
-  getValidEndAirport,
-  getAirportDistance,
-  getRouteDemand,
-} from "@modules/calculationUtils";
+import { getAirportDistance, getRouteDemand } from "@modules/calculationUtils";
 import { v4 as uuidv4 } from "uuid";
 
 const filters = $ref({
   global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 });
 
-let viewPlanePicker = $ref(false);
-let viewRouteStartPicker = $ref(false);
-let viewRouteEndPicker = $ref(false);
+let startSelection = $ref();
+let endSelection = $ref();
 
-let planeSelection = $ref();
-let routeStartSelection = $ref();
-let routeEndSelection = $ref();
+const canCreate = $computed(() => !!startSelection && !!endSelection && startSelection.code !== endSelection.code);
 
-const possibleEndCodes = $computed(() => {
-  return getValidEndAirport(
-    routeStartSelection.code,
-    {
-      latitude: routeStartSelection.latitude,
-      longitude: routeStartSelection.longitude,
-    },
-    { planeID: planeSelection.planeID, variantID: planeSelection.variantID }
-  );
-});
-
-function createNewRoute() {
-  const routeID = generateNewRouteEntry(
-    routeStartSelection.code,
-    routeEndSelection.code
-  );
+function createRoute() {
+  if (!canCreate) return;
+  const distance = getAirportDistance(startSelection.code, endSelection.code);
+  const demand = getRouteDemand(startSelection.code, endSelection.code, distance);
   airlineStore.userAirline.routes.push({
-    routeID,
-    flights: [
-      {
-        airplane: planeSelection.id,
-        day: 0,
-        time: 600,
-        flightTime: 0,
-      },
-    ],
+    id: uuidv4(),
+    start: startSelection.code,
+    end: endSelection.code,
+    distance,
+    baseDemand: demand,
   });
+  startSelection = null;
+  endSelection = null;
 }
 
-function generateNewRouteEntry(start, end) {
-  const existingRoute = airlineStore.routeList.find(
-    (rt) => rt.startAirport === start && rt.endAirport === end
-  );
-
-  if (existingRoute) return existingRoute.routeID;
-
-  const newRouteID = uuidv4()
-
-  const routeDist = getAirportDistance(start, end);
-  airlineStore.routeList.push({
-    startingAirport: start,
-    endingAirport: end,
-    routeID: newRouteID,
-    distance: routeDist,
-    baseDemand: getRouteDemand(start, end, routeDist),
-  });
-
-  return newRouteID
-}
-
-function goBackAStep(){
-  if(viewRouteStartPicker){
-    viewRouteStartPicker = false;
-    viewPlanePicker = true;
-
-    planeSelection = null;
-    routeStartSelection = null;
-  }
-
-  if(viewRouteEndPicker){
-    viewRouteEndPicker = false;
-    viewRouteStartPicker = true;
-
-    routeStartSelection = null;
-    routeEndSelection = null;
-  }
-}
-
-onMounted(() => {
-  viewPlanePicker = true;
-});
-
-
-watch(
-  () => windowManager.routePanelOpen,
-  (newVal) => {
-    if(newVal) {
-      viewPlanePicker = true;
-      viewRouteStartPicker = false;
-      viewRouteEndPicker = false;
-      planeSelection = null;
-      routeStartSelection = null;
-      routeEndSelection = null;
-    }
-  }
-);
+onMounted(() => {});
 </script>
 
 <template>
-  <Dialog
-    v-model:visible="windowManager.routePanelOpen"
-    modal
-    header="Create a Route!"
-  >
-    <div
-      v-if="airlineStore.userAirline?.airplanes?.length > 0 && viewPlanePicker"
-    >
-      <DataTable
-        v-model:filters="filters"
-        :value="airlineStore.userAirline.airplanes"
-        v-model:selection="planeSelection"
-        selection-mode="single"
-        dataKey="planeID"
-        tableStyle="min-width: 60rem"
-      >
-        <template #header>
-          <div class="flex flex-wrap justify-end gap-2">
-            <div class="relative">
-              <i
-                class="pi pi-search absolute top-1/2 -mt-2 text-surface-400 leading-none end-3 z-1"
-              />
-              <InputText
-                v-model="filters['global'].value"
-                placeholder="Search"
-              />
-            </div>
-          </div>
-        </template>
-
-        <Column header="Builder" sortable>
-          <template #body="planeProps">
-            {{ planeProps.data.builder }} {{ planeProps.data.family }}
-          </template>
-        </Column>
-        <Column field="size" header="Size" sortable></Column>
-        <Column field="size" header="Usage" sortable></Column>
-        <Column field="crew" header="Crew P/A">
-          <template #body="planeProps">
-            {{ planeProps.data.crew.pilots }} /
-            {{ planeProps.data.crew.attendants }}
-          </template>
-        </Column>
-        <Column
-          field="specs.maxPassengers"
-          header="Passengers"
-          sortable
-        ></Column>
-        <Column field="specs.cargoCapacity" header="Cargo" sortable>
-          <template #body="variantProps">
-            ${{ variantProps.data.specs.cargoCapacity }}T
-          </template>
-        </Column>
-      </DataTable>
-
-      <Button
-        :disabled="!planeSelection"
-        label="Create Route"
-        @click="
-          viewPlanePicker = false;
-          viewRouteStartPicker = true;
-        "
-      />
-    </div>
-    <div v-else-if="viewRouteStartPicker">
-      <!-- Show list of airports. Two lists, ones you have terminals and ones you dont.
-       Then on selection find valid ends. -->
-
-      <DataTable
-        v-model:filters="filters"
-        :value="airportList"
-        v-model:selection="routeStartSelection"
-        selection-mode="single"
-        dataKey="planeID"
-        tableStyle="min-width: 60rem"
-      >
-        <template #header>
-          <div class="flex flex-wrap justify-between gap-2">
-            <div>
-              <Button class="border-none" type="button" icon="pi pi-arrow-left" @click="goBackAStep" />
-            </div>
-            <div class="relative">
-              <i
-                class="pi pi-search absolute top-1/2 -mt-2 text-surface-400 leading-none end-3 z-1"
-              />
-              <InputText
-                v-model="filters['global'].value"
-                placeholder="Search"
-              />
-            </div>
-          </div>
-        </template>
-
-        <Column field="name" header="Name" sortable> </Column>
-        <Column field="country" header="Country" sortable></Column>
-      </DataTable>
-
-      <Button
-        :disabled="!routeStartSelection"
-        label="End Route"
-        @click="
-          viewRouteStartPicker = false;
-          viewRouteEndPicker = true;
-        "
-      />
-    </div>
-    <div v-else-if="viewRouteEndPicker">
-      <!-- Show list of airports. Two lists, ones you have terminals and ones you dont.
-       Then on selection find valid ends. -->
-
-      <DataTable
-        v-model:filters="filters"
-        :value="
-          airportList.filter((item) => possibleEndCodes.includes(item.code))
-        "
-        v-model:selection="routeEndSelection"
-        selection-mode="single"
-        dataKey="planeID"
-        tableStyle="min-width: 60rem"
-      >
-        <template #header>
-          <div class="flex flex-wrap justify-between gap-2">
-            <div>
-              <Button class="border-none" type="button" icon="pi pi-arrow-left" @click="goBackAStep" />
-            </div>
-            <div class="relative">
-              <i
-                class="pi pi-search absolute top-1/2 -mt-2 text-surface-400 leading-none end-3 z-1"
-              />
-              <InputText
-                v-model="filters['global'].value"
-                placeholder="Search"
-              />
-            </div>
-          </div>
-        </template>
-
-        <Column field="name" header="Name" sortable> </Column>
-        <Column field="country" header="Country" sortable></Column>
-      </DataTable>
-
-      <Button
-        :disabled="!routeEndSelection"
-        label="End Route"
-        @click="
-          createNewRoute();
-          windowManager.routePanelOpen = false;
-        "
-      />
-    </div>
-
-    <div v-else>
-      <h2>Please purchase an airplane to create a route.</h2>
+  <Dialog v-model:visible="windowManager.routePanelOpen" modal header="Create a Route">
+    <div class="flex flex-col gap-6">
+      <div>
+        <h3 class="font-bold mb-2">Select Start Airport</h3>
+        <DataTable
+          v-model:filters="filters"
+          :value="airportList"
+          v-model:selection="startSelection"
+          selection-mode="single"
+          dataKey="code"
+          scrollable
+          scroll-height="200px"
+          tableStyle="min-width: 40rem"
+        >
+          <Column field="code" header="Code" sortable />
+          <Column field="name" header="Name" />
+          <Column field="country" header="Country" />
+        </DataTable>
+      </div>
+      <div v-if="startSelection">
+        <h3 class="font-bold mb-2">Select End Airport</h3>
+        <DataTable
+          v-model:filters="filters"
+            :value="airportList.filter(a => a.code !== startSelection.code)"
+            v-model:selection="endSelection"
+            selection-mode="single"
+            dataKey="code"
+            scrollable
+            scroll-height="200px"
+            tableStyle="min-width: 40rem"
+        >
+          <Column field="code" header="Code" sortable />
+          <Column field="name" header="Name" />
+          <Column field="country" header="Country" />
+        </DataTable>
+      </div>
+      <div class="flex gap-4 justify-end">
+        <Button label="Close" @click="windowManager.routePanelOpen=false" />
+        <Button :disabled="!canCreate" label="Create Route" @click="createRoute" />
+      </div>
+      <div>
+        <h4 class="font-semibold">Existing Routes</h4>
+        <ul class="list-disc ml-5">
+          <li v-for="r in airlineStore.userAirline.routes" :key="r.id">{{ r.start }} -> {{ r.end }} ({{ r.distance.toFixed(0) }} km)</li>
+        </ul>
+      </div>
     </div>
   </Dialog>
 </template>
 
-<style scoped>
-#route-panel {
-  position: absolute;
-  top: 10%;
-  left: 5%;
-  z-index: 150;
-
-  width: 80vw;
-  max-width: 1200px;
-  height: 70vh;
-
-  background-color: white;
-  color: black;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-}
-</style>
+<style scoped></style>

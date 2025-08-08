@@ -10,9 +10,9 @@ import { windowManager } from "@stores/windowManager.js";
       @click="airlineStore.startNewAirline('Test Line')"
       label="New Airline"
     />
-    <Button @click="windowManager.openPlanePanel()" label="Buy a Plane" />
-    <Button @click="windowManager.openRoutePanel()" label="Make a Route" />
-    <Button @click="windowManager.openSchedulerPanel()" label="Schedule a Flight" />
+    <Button @click="windowManager.openPlanePanel()" label="Buy Planes" />
+    <Button @click="windowManager.openRoutePanel()" label="Create Route" />
+    <Button @click="windowManager.openSchedulerPanel()" label="Schedule Flights" />
 
     <ToggleSwitch v-model="windowManager.showRoutesOnMap" /> Show Routes
     {{ windowManager.showRoutesOnMap }}
